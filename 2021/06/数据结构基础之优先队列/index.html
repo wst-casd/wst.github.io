@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <title>
+        数据结构基础之优先队列 - wst_dreg&#39;s blog
+      </title>
+        <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    
+    <meta name="theme-color" content="#000000" />
+    
+    <meta http-equiv="window-target" content="_top" />
+    
+    
+    <meta name="description" content="1 概念 队列 的特点是先入先出，下图是队列的一个例子： 优先队列 的特点是存入其中的每项数据都另外附一个数值，表示这个项的优先程度，称为其优先级。优" />
+    <meta name="generator" content="Hugo 0.71.1 with theme pure" />
+    <title>数据结构基础之优先队列 - wst_dreg&#39;s blog</title>
+    
+    
+    <link rel="stylesheet" href="https://wst-casd.github.io/wst.github.io/css/style.min.ed1876313d7769da6b3d0f9eeb3dadae8e266a095740130e67acfe46eb4c19b2.css">
+    
+    <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.15.10/styles/github.min.css" async>
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/tocbot/4.12.2/tocbot.min.css" async>
+    <meta property="og:title" content="数据结构基础之优先队列" />
+<meta property="og:description" content="1 概念 队列 的特点是先入先出，下图是队列的一个例子： 优先队列 的特点是存入其中的每项数据都另外附一个数值，表示这个项的优先程度，称为其优先级。优" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://wst-casd.github.io/wst.github.io/2021/06/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E4%B9%8B%E4%BC%98%E5%85%88%E9%98%9F%E5%88%97/" />
+<meta property="article:published_time" content="2021-06-23T08:53:40+08:00" />
+<meta property="article:modified_time" content="2021-06-23T08:53:40+08:00" />
+<meta itemprop="name" content="数据结构基础之优先队列">
+<meta itemprop="description" content="1 概念 队列 的特点是先入先出，下图是队列的一个例子： 优先队列 的特点是存入其中的每项数据都另外附一个数值，表示这个项的优先程度，称为其优先级。优">
+<meta itemprop="datePublished" content="2021-06-23T08:53:40&#43;08:00" />
+<meta itemprop="dateModified" content="2021-06-23T08:53:40&#43;08:00" />
+<meta itemprop="wordCount" content="1282">
+
+
+
+<meta itemprop="keywords" content="堆,优先队列," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="数据结构基础之优先队列"/>
+<meta name="twitter:description" content="1 概念 队列 的特点是先入先出，下图是队列的一个例子： 优先队列 的特点是存入其中的每项数据都另外附一个数值，表示这个项的优先程度，称为其优先级。优"/>
+
+    <!--[if lte IE 9]>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+      <![endif]-->
+
+    <!--[if lt IE 9]>
+        <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+      <![endif]-->
+  </head>
+
+  
+  
+
+  <body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage"><header class="header" itemscope itemtype="http://schema.org/WPHeader">
+    <div class="slimContent">
+      <div class="navbar-header">
+        <div class="profile-block text-center">
+          <a id="avatar" href="https://github.com/wst-casd" target="_blank">
+            <img class="img-circle img-rotate" src="https://wst-casd.github.io/wst.github.io/avatar.png" width="200" height="200">
+          </a>
+          <h2 id="name" class="hidden-xs hidden-sm">wst_dreg</h2>
+          <h3 id="title" class="hidden-xs hidden-sm hidden-md">千里之行，始于足下</h3>
+          <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i>Shanghai, China</small>
+        </div><div class="search" id="search-form-wrap">
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i
+                        class="icon icon-search"></i></button>
+            </span>
+        </div>
+        <div class="ins-search">
+            <div class="ins-search-mask"></div>
+            <div class="ins-search-container">
+                <div class="ins-input-wrapper">
+                    <input type="text" class="ins-search-input" placeholder="想要查找什么..."
+                        x-webkit-speech />
+                    <button type="button" class="close ins-close ins-selectable" data-dismiss="modal"
+                        aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="ins-section-wrapper">
+                    <div class="ins-section-container"></div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+        <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+        <ul class="nav navbar-nav main-nav">
+            <li class="menu-item menu-item-home">
+                <a href="/wst.github.io/">
+                    <i class="icon icon-home-fill"></i>
+                  <span class="menu-title">主页</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-archives">
+                <a href="/wst.github.io/posts/">
+                    <i class="icon icon-archives-fill"></i>
+                  <span class="menu-title">归档</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-about">
+                <a href="/wst.github.io/about/">
+                    <i class="icon icon-cup-fill"></i>
+                  <span class="menu-title">关于我</span>
+                </a>
+            </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+<aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content"><p>暂无</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+      <div class="widget">
+    <h3 class="widget-title"> 分类</h3>
+    <div class="widget-body">
+        <ul class="category-list">
+            <li class="category-list-item"><a href="https://wst-casd.github.io/wst.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" class="category-list-link">数据结构与算法</a><span class="category-list-count">16</span></li>
+        </ul>
+    </div>
+</div>
+      
+<div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+        <ul class="recent-post-list list-unstyled no-thumbnail">
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://wst-casd.github.io/wst.github.io/2021/11/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E4%B9%8B%E6%A1%B6%E6%8E%92%E5%BA%8F/" class="title">数据结构基础之桶排序</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2021-11-17 07:53:40 &#43;0800 CST" itemprop="datePublished">2021-11-17</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://wst-casd.github.io/wst.github.io/2021/11/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E4%B9%8B%E8%AE%A1%E6%95%B0%E6%8E%92%E5%BA%8F/" class="title">数据结构基础之计数排序</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2021-11-10 07:53:40 &#43;0800 CST" itemprop="datePublished">2021-11-10</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://wst-casd.github.io/wst.github.io/2021/11/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%A0%86%E6%8E%92%E5%BA%8F/" class="title">数据结构基础之堆排序</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2021-11-06 07:53:40 &#43;0800 CST" itemprop="datePublished">2021-11-06</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://wst-casd.github.io/wst.github.io/2021/11/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/" class="title">数据结构基础之归并排序</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2021-11-02 07:53:40 &#43;0800 CST" itemprop="datePublished">2021-11-02</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://wst-casd.github.io/wst.github.io/2021/10/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/" class="title">数据结构基础之快速排序</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2021-10-25 07:53:40 &#43;0800 CST" itemprop="datePublished">2021-10-25</time>
+                    </p>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+  </div>
+</aside>
+
+    
+    
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <h4 class="toc-title">文章目录</h4>
+    <nav id="toc" class="js-toc toc">
+
+    </nav>
+  </div>
+</aside>
+<main class="main" role="main"><div class="content">
+  <article id="-" class="article article-type-" itemscope
+    itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      <h1 itemprop="name">
+  <a
+    class="article-title"
+    href="/wst.github.io/2021/06/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E4%B9%8B%E4%BC%98%E5%85%88%E9%98%9F%E5%88%97/"
+    >数据结构基础之优先队列</a
+  >
+</h1>
+
+      <div class="article-meta">
+        
+<span class="article-date">
+  <i class="icon icon-calendar-check"></i>&nbsp;
+<a href="https://wst-casd.github.io/wst.github.io/2021/06/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E4%B9%8B%E4%BC%98%E5%85%88%E9%98%9F%E5%88%97/" class="article-date">
+  <time datetime="2021-06-23 08:53:40 &#43;0800 CST" itemprop="datePublished">2021-06-23</time>
+</a>
+</span>
+<span class="article-category">
+  <i class="icon icon-folder"></i>&nbsp;
+  <a class="article-category-link" href="/wst.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"> 数据结构与算法 </a>
+</span>  
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>&nbsp;
+    <a class="article-tag-link" href="/wst.github.io/tags/%E5%A0%86/"> 堆 </a>
+    <a class="article-tag-link" href="/wst.github.io/tags/%E4%BC%98%E5%85%88%E9%98%9F%E5%88%97/"> 优先队列 </a>
+  </span>
+
+      </div>
+    </div>
+    <div class="article-entry marked-body js-toc-content" itemprop="articleBody">
+      <h3 id="1-概念">1 概念</h3>
+<p>  <a href="https://wst-casd.github.io/wst.github.io/2021/05/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E4%B9%8B%E9%98%9F%E5%88%97/">队列</a> 的特点是先入先出，下图是队列的一个例子：</p>
+<div align=center><img src="./queue_1.png" width="400" heigth="400"></div>
+<div align=center><img src="./queue_2.png" width="400" heigth="400"></div>
+<br>
+<p>  <strong>优先队列</strong> 的特点是存入其中的每项数据都另外附一个数值，表示这个项的优先程度，称为其优先级。优先队列保证，在任何时候访问或者弹出的，总是当时在这个结构里保存的所有元素中优先级最高的。如果该元素不弹出，再次访问还是得到它。在一些情景中，可能出现不同元素具有相同优先级的情况。如果不止一个元素的优先级最高，优先队列将保证访问或弹出其中一个，具体是哪一个
+元素由内部实现确定。</p>
+<p>  抽象的看，需要缓存的是一个有序集$S=(D, \le)$的元素，这里的&quot;$\le$&quot;是集合$D$上的一个全序(非严格的)，表示元素的优先关系。优先队列要求保证&quot;最优先元素先出&rdquo;。</p>
+<p>  比如，又一个最大优先队列，它的最大元素是8，那么虽然元素8并不是队首元素，但出队的时候仍然让元素8首先出队：</p>
+<div align=center><img src="./prioqueue.png" width="400" heigth="400"></div>
+<p>  优先队列的操作也很简单，应该包含：</p>
+<ul>
+<li>创建，判断空（还可以有清空内容，确定当前元素个数等）</li>
+<li>插入元素，访问和删除优先队列里（当前最优先）的元素</li>
+</ul>
+<h3 id="2-优先队列的实现">2 优先队列的实现</h3>
+<h4 id="21-基于线性表的实现">2.1 基于线性表的实现</h4>
+<p>  考虑一种简单方法：基于连续表技术实现优先队列。数据项在连续表里的存储顺序可用于表示数据之间的某种顺序关系。对于优先队列，这个顺序可用于表示优先级关系。在存入数据时，保证表中元素始终按照优先顺序排列(作为一种数据不变式)，任何时候都可以直接取到当时表里最优先的元素。采用有组织的元素存放方式，存入元素的操作比较麻烦，效率可能较低，但访问和弹出比较方便。</p>
+<p><strong>基于list实现优先队列</strong></p>
+<p>  在下面的实现中，假定需要存储的元素用&quot;$\le$&quot;比较优先级，值较小的元素优先级更高。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python3" data-lang="python3"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">PrioQueueError</span>(<span style="color:#a6e22e">ValueError</span>):
+    <span style="color:#66d9ef">pass</span>
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">PrioQueue</span>(object):
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__init__</span>(self, elist):
+        self<span style="color:#f92672">.</span>_elems <span style="color:#f92672">=</span> list(elist)
+        self<span style="color:#f92672">.</span>_elems<span style="color:#f92672">.</span>sort(reverse<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">enqueue</span>(self, e):
+        e <span style="color:#f92672">=</span> len(self<span style="color:#f92672">.</span>_elems) <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>
+
+        <span style="color:#66d9ef">while</span> i <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">0</span>:
+            <span style="color:#66d9ef">if</span> self<span style="color:#f92672">.</span>_elems[i] <span style="color:#f92672">&lt;=</span> e:
+                i <span style="color:#f92672">-=</span> <span style="color:#ae81ff">1</span>
+            <span style="color:#66d9ef">else</span>:
+                <span style="color:#66d9ef">break</span>;
+        
+        self<span style="color:#f92672">.</span>_elems<span style="color:#f92672">.</span>insert(i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, e)
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">is_empty</span>(self):
+        <span style="color:#66d9ef">return</span> <span style="color:#f92672">not</span> self<span style="color:#f92672">.</span>_elems
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">peek</span>(self):
+        <span style="color:#66d9ef">if</span> self<span style="color:#f92672">.</span>is_empty():
+            <span style="color:#66d9ef">raise</span> PrioQueueError(<span style="color:#e6db74">&#39;in peek&#39;</span>)
+
+        <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>_elems[<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">dequeue</span>(self):
+        <span style="color:#66d9ef">if</span> self<span style="color:#f92672">.</span>is_empty():
+            <span style="color:#66d9ef">raise</span> PrioQueueError(<span style="color:#e6db74">&#39;in dequeue&#39;</span>)
+
+        <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>_elems<span style="color:#f92672">.</span>pop() </code></pre></div>
+<p><strong>对连续表实现的分析</strong></p>
+<p>  各操作的效率(复杂度)都很清晰：插入元素是O(n), 其他操作都是O(1)操作。</p>
+<p>  采用线性结构按序插入操作效率低，其根源就是需要沿着表顺序检索插入位置。表长度是$n$, 检索(和最终插入)必然需要O($n$)的时间。这说明，只要元素按优先级顺序线性排列，就无法避免线性复杂性问题。不改变数据的线性顺序逻辑方式，就不可能突破O($n$)的复杂度限制。</p>
+<p>  一般而言，确定最优先元素并不需要与所有其他元素比较。利用树状结构的祖先/孩子，又可能得到更好的操作效率。想在优先队列的实现中利用树形结构的优势，还需要解决一个问题：如何在反复插入和删除元素的过程中，持续保持树形结构的特点和操作效率。<a href="https://wst-casd.github.io/wst.github.io/2021/06/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%A0%86/">堆</a>是一种很好的树形结构用来实现优先队列。</p>
+<h4 id="22-基于堆的实现">2.2 基于堆的实现</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python3" data-lang="python3"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">PrioQueueError</span>(<span style="color:#a6e22e">ValueError</span>):
+    <span style="color:#66d9ef">pass</span>
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">PrioQueue_Heap</span>(object):
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__init__</span>(self, elist):
+        self<span style="color:#f92672">.</span>_elems <span style="color:#f92672">=</span> list(elist)
+        <span style="color:#66d9ef">if</span> elist:
+            self<span style="color:#f92672">.</span>__build_heap()
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">enqueue</span>(self, e):
+        self<span style="color:#f92672">.</span>_elems<span style="color:#f92672">.</span>append(<span style="color:#66d9ef">None</span>)
+        self<span style="color:#f92672">.</span>__sift_up(e, len(self<span style="color:#f92672">.</span>_elems)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">is_empty</span>(self):
+        <span style="color:#66d9ef">return</span> <span style="color:#f92672">not</span> self<span style="color:#f92672">.</span>_elems
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">peek</span>(self):
+        <span style="color:#66d9ef">if</span> self<span style="color:#f92672">.</span>is_empty():
+            <span style="color:#66d9ef">raise</span> PrioQueueError(<span style="color:#e6db74">&#39;in top&#39;</span>)
+
+        <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>_elems[<span style="color:#ae81ff">0</span>]
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">dequeue</span>(self):
+        <span style="color:#66d9ef">if</span> self<span style="color:#f92672">.</span>is_empty():
+            <span style="color:#66d9ef">raise</span> PrioQueueError(<span style="color:#e6db74">&#39;in deheap&#39;</span>)
+
+        e0 <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>_elems[<span style="color:#ae81ff">0</span>]
+        e <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>_elems<span style="color:#f92672">.</span>pop()
+
+        <span style="color:#66d9ef">if</span> self<span style="color:#f92672">.</span>is_empty():
+            self<span style="color:#f92672">.</span>__sift_down(e, <span style="color:#ae81ff">0</span>, len(self<span style="color:#f92672">.</span>_elems))
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__sift_up</span>(self, e, end):
+        parent, cur <span style="color:#f92672">=</span> (end<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>) <span style="color:#f92672">&gt;&gt;</span> <span style="color:#ae81ff">1</span>, end
+
+        <span style="color:#66d9ef">while</span> cur <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">and</span> self<span style="color:#f92672">.</span>_elems[parent] <span style="color:#f92672">&gt;</span> e:
+            self<span style="color:#f92672">.</span>_elems[cur] <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>_elems[parent]
+            cur, parent <span style="color:#f92672">=</span> parent, (parent<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>) <span style="color:#f92672">&gt;&gt;</span> <span style="color:#ae81ff">1</span>
+        
+        self<span style="color:#f92672">.</span>_elems[cur] <span style="color:#f92672">=</span> e
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__sift_down</span>(self, e, begin, end):
+        cur, child <span style="color:#f92672">=</span> begin, (begin <span style="color:#f92672">&lt;&lt;</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
+
+        <span style="color:#66d9ef">while</span> child <span style="color:#f92672">&lt;</span> end:
+            <span style="color:#66d9ef">if</span> child<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span> <span style="color:#f92672">&lt;</span> end <span style="color:#f92672">and</span> self<span style="color:#f92672">.</span>_elems[child] <span style="color:#f92672">&gt;</span> self<span style="color:#f92672">.</span>_elems[child<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>]:
+                child <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+
+            <span style="color:#66d9ef">if</span> e <span style="color:#f92672">&lt;</span> self<span style="color:#f92672">.</span>_elems[child]:
+                <span style="color:#66d9ef">break</span>
+
+            self<span style="color:#f92672">.</span>_elems[cur] <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>_elems[child]
+            cur, child <span style="color:#f92672">=</span> child, (child <span style="color:#f92672">&lt;&lt;</span> <span style="color:#ae81ff">1</span>)<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>
+        
+        self<span style="color:#f92672">.</span>_elems[cur] <span style="color:#f92672">=</span> e
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__build_heap</span>(self):
+        end <span style="color:#f92672">=</span> len(self<span style="color:#f92672">.</span>_elems)
+
+        <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(end <span style="color:#f92672">&gt;&gt;</span> <span style="color:#ae81ff">1</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>):
+            self<span style="color:#f92672">.</span>__sift_down(self<span style="color:#f92672">.</span>_elems[i], i, end)</code></pre></div>
+<h3 id="3-参考">3 参考</h3>
+<p>[1] 《数据结构与算法 Python语言描述》 裘宗燕 著 机械工业出版社， 2015.12</p>
+<p>[2] <a href="https://mp.weixin.qq.com/s/4hXBw7sZ-NKs_asOQxS7gA">漫画：什么是优先队列？</a></p>
+<p>[3] <a href="https://mp.weixin.qq.com/s/cq2EhVtOTzTVpNpLDXfeJg">漫画：什么是二叉堆？</a></p>
+
+    </div>
+    <div class="article-footer">
+
+    </div>
+  </article>
+</div><nav class="bar bar-footer clearfix" data-stick-bottom>
+    <div class="bar-inner">
+        <ul class="pager pull-left">
+            <li class="prev">
+                <a href="https://wst-casd.github.io/wst.github.io/2021/06/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%A0%86/" title="数据结构基础之堆"><i
+                        class="icon icon-angle-left"
+                        aria-hidden="true"></i><span>&nbsp;&nbsp;下一篇</span></a>
+            </li>
+            <li class="next">
+                <a href="https://wst-casd.github.io/wst.github.io/2021/07/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E4%B9%8B%E4%BA%8C%E5%8F%89%E6%8E%92%E5%BA%8F%E6%A0%91/"
+                    title="数据结构基础之二叉排序树"><span>上一篇&nbsp;&nbsp;</span><i
+                        class="icon icon-angle-right" aria-hidden="true"></i></a>
+            </li>
+            
+            <li class="toggle-toc">
+                <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false"
+                    title="文章目录" role="button">
+                    <span>[&nbsp;</span><span>文章目录</span>
+                    <i class="text-collapsed icon icon-anchor"></i>
+                    <i class="text-in icon icon-close"></i>
+                    <span>]</span>
+                </a>
+            </li>
+        </ul>
+        <div class="bar-right">
+            <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter"
+                data-mobile-sites="weibo,qq,qzone"></div>
+        </div>
+    </div>
+</nav>
+
+
+</main><footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+<ul class="social-links">
+    <li><a href="https://github.com/wst-casd" target="_blank" title="github" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-github"></i></a></li>
+</ul>
+  <div class="copyright">
+    &copy;2021  -
+    2022
+    
+  </div>
+</footer>
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/katex.min.css" integrity="sha384-t5CR+zwDAROtph0PXGte6ia8heboACF9R5l/DiY+WZ3P2lxNgvJkQk5n7GPvLMYw" crossorigin="anonymous">
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/katex.min.js" integrity="sha384-FaFLTlohFghEIZkw6VGwmf9ISTubWAVYW8tG8+w2LAIftJEULZABrF9PPFv+tVkH" crossorigin="anonymous"></script>
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/contrib/auto-render.min.js" integrity="sha384-bHBqxz8fokvgoJ/sc17HODNxa42TlaEhB+w8ZJXTc2nZf1VgEaFZeZvT4Mznfz0v" crossorigin="anonymous"
+    onload="renderMathInElement(document.body);"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+                delimiters: [
+                    {left: "$$", right: "$$", display: true},
+                    {left: "$", right: "$", display: false}
+                ]
+            });
+    });
+ </script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+<script>
+    window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/highlight.min.js"></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/python.min.js" defer></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/javascript.min.js" defer></script><script>
+    hljs.configure({
+        tabReplace: '    ', 
+        classPrefix: ''     
+        
+    })
+    hljs.initHighlightingOnLoad();
+</script>
+<script src="https://wst-casd.github.io/wst.github.io/js/application.min.bdeb64b910570b6c41badc6a05b7afb0c8ad9efd8525de3c7257d59e786326a3.js"></script>
+<script src="https://wst-casd.github.io/wst.github.io/js/plugin.min.51ff8c7317566f82259170fa36e09c4493adc9b9378b427a01ad3f017ebac7dd.js"></script>
+
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(未命名)',
+            },
+            ROOT_URL: 'https:\/\/wst-casd.github.io\/wst.github.io\/',
+            CONTENT_URL: 'https:\/\/wst-casd.github.io\/wst.github.io\/\/searchindex.json ',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script type="text/javascript" src="https://wst-casd.github.io/wst.github.io/js/insight.min.a343cd9a5a7698336b28ef3a7c16a3a1b1d2d5fb17dc8ed04022bbe08cc5459073a15bdafa3a8a58cdd56080784bdd69fa70b1ae8597565c799c57ed00f0e120.js" defer></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/tocbot/4.12.2/tocbot.min.js"></script>
+<script>
+    tocbot.init({
+        
+        tocSelector: '.js-toc',
+        
+        contentSelector: '.js-toc-content',
+        
+        headingSelector: 'h1, h2, h3',
+        
+        hasInnerContainers: true,
+    });
+</script>
+
+
+  </body>
+</html>

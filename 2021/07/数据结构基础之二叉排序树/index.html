@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <title>
+        数据结构基础之二叉排序树 - wst_dreg&#39;s blog
+      </title>
+        <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    
+    <meta name="theme-color" content="#000000" />
+    
+    <meta http-equiv="window-target" content="_top" />
+    
+    
+    <meta name="description" content="1 二叉排序树 1.1 定义 二叉排序树(Binary Sort Tree)，又称二叉查找树(Binary Search Tree)，是一种在结点里存储数据的二叉树。它或者是一" />
+    <meta name="generator" content="Hugo 0.71.1 with theme pure" />
+    <title>数据结构基础之二叉排序树 - wst_dreg&#39;s blog</title>
+    
+    
+    <link rel="stylesheet" href="https://wst-casd.github.io/wst.github.io/css/style.min.ed1876313d7769da6b3d0f9eeb3dadae8e266a095740130e67acfe46eb4c19b2.css">
+    
+    <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.15.10/styles/github.min.css" async>
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/tocbot/4.12.2/tocbot.min.css" async>
+    <meta property="og:title" content="数据结构基础之二叉排序树" />
+<meta property="og:description" content="1 二叉排序树 1.1 定义 二叉排序树(Binary Sort Tree)，又称二叉查找树(Binary Search Tree)，是一种在结点里存储数据的二叉树。它或者是一" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://wst-casd.github.io/wst.github.io/2021/07/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E4%B9%8B%E4%BA%8C%E5%8F%89%E6%8E%92%E5%BA%8F%E6%A0%91/" />
+<meta property="article:published_time" content="2021-07-05T07:53:40+08:00" />
+<meta property="article:modified_time" content="2021-07-05T07:53:40+08:00" />
+<meta itemprop="name" content="数据结构基础之二叉排序树">
+<meta itemprop="description" content="1 二叉排序树 1.1 定义 二叉排序树(Binary Sort Tree)，又称二叉查找树(Binary Search Tree)，是一种在结点里存储数据的二叉树。它或者是一">
+<meta itemprop="datePublished" content="2021-07-05T07:53:40&#43;08:00" />
+<meta itemprop="dateModified" content="2021-07-05T07:53:40&#43;08:00" />
+<meta itemprop="wordCount" content="1667">
+
+
+
+<meta itemprop="keywords" content="树,二叉树,二叉排序树," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="数据结构基础之二叉排序树"/>
+<meta name="twitter:description" content="1 二叉排序树 1.1 定义 二叉排序树(Binary Sort Tree)，又称二叉查找树(Binary Search Tree)，是一种在结点里存储数据的二叉树。它或者是一"/>
+
+    <!--[if lte IE 9]>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+      <![endif]-->
+
+    <!--[if lt IE 9]>
+        <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+      <![endif]-->
+  </head>
+
+  
+  
+
+  <body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage"><header class="header" itemscope itemtype="http://schema.org/WPHeader">
+    <div class="slimContent">
+      <div class="navbar-header">
+        <div class="profile-block text-center">
+          <a id="avatar" href="https://github.com/wst-casd" target="_blank">
+            <img class="img-circle img-rotate" src="https://wst-casd.github.io/wst.github.io/avatar.png" width="200" height="200">
+          </a>
+          <h2 id="name" class="hidden-xs hidden-sm">wst_dreg</h2>
+          <h3 id="title" class="hidden-xs hidden-sm hidden-md">千里之行，始于足下</h3>
+          <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i>Shanghai, China</small>
+        </div><div class="search" id="search-form-wrap">
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i
+                        class="icon icon-search"></i></button>
+            </span>
+        </div>
+        <div class="ins-search">
+            <div class="ins-search-mask"></div>
+            <div class="ins-search-container">
+                <div class="ins-input-wrapper">
+                    <input type="text" class="ins-search-input" placeholder="想要查找什么..."
+                        x-webkit-speech />
+                    <button type="button" class="close ins-close ins-selectable" data-dismiss="modal"
+                        aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="ins-section-wrapper">
+                    <div class="ins-section-container"></div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+        <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+        <ul class="nav navbar-nav main-nav">
+            <li class="menu-item menu-item-home">
+                <a href="/wst.github.io/">
+                    <i class="icon icon-home-fill"></i>
+                  <span class="menu-title">主页</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-archives">
+                <a href="/wst.github.io/posts/">
+                    <i class="icon icon-archives-fill"></i>
+                  <span class="menu-title">归档</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-about">
+                <a href="/wst.github.io/about/">
+                    <i class="icon icon-cup-fill"></i>
+                  <span class="menu-title">关于我</span>
+                </a>
+            </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+<aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content"><p>暂无</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+      <div class="widget">
+    <h3 class="widget-title"> 分类</h3>
+    <div class="widget-body">
+        <ul class="category-list">
+            <li class="category-list-item"><a href="https://wst-casd.github.io/wst.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" class="category-list-link">数据结构与算法</a><span class="category-list-count">16</span></li>
+        </ul>
+    </div>
+</div>
+      
+<div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+        <ul class="recent-post-list list-unstyled no-thumbnail">
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://wst-casd.github.io/wst.github.io/2021/11/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E4%B9%8B%E6%A1%B6%E6%8E%92%E5%BA%8F/" class="title">数据结构基础之桶排序</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2021-11-17 07:53:40 &#43;0800 CST" itemprop="datePublished">2021-11-17</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://wst-casd.github.io/wst.github.io/2021/11/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E4%B9%8B%E8%AE%A1%E6%95%B0%E6%8E%92%E5%BA%8F/" class="title">数据结构基础之计数排序</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2021-11-10 07:53:40 &#43;0800 CST" itemprop="datePublished">2021-11-10</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://wst-casd.github.io/wst.github.io/2021/11/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%A0%86%E6%8E%92%E5%BA%8F/" class="title">数据结构基础之堆排序</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2021-11-06 07:53:40 &#43;0800 CST" itemprop="datePublished">2021-11-06</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://wst-casd.github.io/wst.github.io/2021/11/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/" class="title">数据结构基础之归并排序</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2021-11-02 07:53:40 &#43;0800 CST" itemprop="datePublished">2021-11-02</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://wst-casd.github.io/wst.github.io/2021/10/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/" class="title">数据结构基础之快速排序</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2021-10-25 07:53:40 &#43;0800 CST" itemprop="datePublished">2021-10-25</time>
+                    </p>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+  </div>
+</aside>
+
+    
+    
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <h4 class="toc-title">文章目录</h4>
+    <nav id="toc" class="js-toc toc">
+
+    </nav>
+  </div>
+</aside>
+<main class="main" role="main"><div class="content">
+  <article id="-" class="article article-type-" itemscope
+    itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      <h1 itemprop="name">
+  <a
+    class="article-title"
+    href="/wst.github.io/2021/07/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E4%B9%8B%E4%BA%8C%E5%8F%89%E6%8E%92%E5%BA%8F%E6%A0%91/"
+    >数据结构基础之二叉排序树</a
+  >
+</h1>
+
+      <div class="article-meta">
+        
+<span class="article-date">
+  <i class="icon icon-calendar-check"></i>&nbsp;
+<a href="https://wst-casd.github.io/wst.github.io/2021/07/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E4%B9%8B%E4%BA%8C%E5%8F%89%E6%8E%92%E5%BA%8F%E6%A0%91/" class="article-date">
+  <time datetime="2021-07-05 07:53:40 &#43;0800 CST" itemprop="datePublished">2021-07-05</time>
+</a>
+</span>
+<span class="article-category">
+  <i class="icon icon-folder"></i>&nbsp;
+  <a class="article-category-link" href="/wst.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"> 数据结构与算法 </a>
+</span>  
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>&nbsp;
+    <a class="article-tag-link" href="/wst.github.io/tags/%E6%A0%91/"> 树 </a>
+    <a class="article-tag-link" href="/wst.github.io/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/"> 二叉树 </a>
+    <a class="article-tag-link" href="/wst.github.io/tags/%E4%BA%8C%E5%8F%89%E6%8E%92%E5%BA%8F%E6%A0%91/"> 二叉排序树 </a>
+  </span>
+
+      </div>
+    </div>
+    <div class="article-entry marked-body js-toc-content" itemprop="articleBody">
+      <h3 id="1-二叉排序树">1 二叉排序树</h3>
+<h4 id="11-定义">1.1 定义</h4>
+<p>  <strong>二叉排序树</strong>(Binary Sort Tree)，又称<strong>二叉查找树</strong>(Binary Search Tree)，是一种在结点里存储数据的二叉树。它或者是一棵空树，或者是具有以下特征的树：</p>
+<ul>
+<li>若它的左子树不空，那么它的左子树的所有结点的值均小于根结点的值；</li>
+<li>若它的右子树不空，那么它的右子树的所有结点的值均大于跟结点的值；</li>
+<li>左子树与右子树也分别为二叉排序树。</li>
+</ul>
+<p>显然，二叉排序树也是一种递归结构，其左右子树具有与整棵树同样的结构。</p>
+<p>  例1，考虑关键码的系列为[57, 89, 96, 36, 65, 43, 52, 7, 18, 60, 74]. 如下图1 是一棵合理的二叉排序树。</p>
+<div align=center><img src="./bst_1.png" width="300" heigth="200"></div>
+<h4 id="12-性质">1.2 性质</h4>
+<p>  <strong>性质</strong>    一棵结点中存储着关键码(数据)的二叉树是二叉排序树，当且仅当通过中序遍历这棵二叉树得到的关键码序列是一个递增序列。</p>
+<h3 id="2-二叉排序树的实现">2 二叉排序树的实现</h3>
+<p>  实现二叉排序树最关键的操作是数据项的插入，删除和查询。其中，插入和删除操作通常都要修改树的结构。</p>
+<h4 id="21-bst的插入">2.1 BST的插入</h4>
+<p>  二叉排序树的插入，易见，对插入操作的基本要求是能够把新数据项加入(二叉排序树)中，并维持二叉排序树的完整性，包括关键码的顺序要求。对于任意一个待插入的数据项都是插入在二叉排序树的叶子结点，问题的关键是找到加入新结点的正确位置，并将新结点正确连接到树中。</p>
+<p>  插入操作中一个重要问题：如果遇到关键码相同的数据项怎么处理？在下面的处理中，总用新值替换关键码的已有关联值，这样会保证二叉排序中不会出现关键码重复的项。</p>
+<p>  查找位置就是用数据项的关键码来检索，</p>
+<ul>
+<li>如果二叉树为空，就直接建立一个包含新建一个包含新关键码和关联值的树根结点；</li>
+<li>否则，搜索新结点的插入位置，沿子结点关系向下：
+<ul>
+<li>遇到应该走向左子树而左子树为空，或者应该走向右子树而右子树为空时，就是找到了新数据项的插入位置，构造新结点并完成实际插入。</li>
+<li>遇到结点里的关键码等于被检索关键码，直接替换关键值并结束。</li>
+</ul>
+</li>
+</ul>
+<p>   下图是图1所示例二叉排序树的创建过程：</p>
+<div align=center><img src="./bst_2.png" width="500" heigth="300"></div>
+<div align=center><img src="./bst_3.png" width="500" heigth="300"></div>
+<div align=center><img src="./bst_4.png" width="500" heigth="300"></div>
+<h4 id="22-bst的查找">2.2 BST的查找</h4>
+<p>  由于二叉排序树(及其子树)的根中保存的数据总是把树中的数据划分为较大和较小的两组，用需要查询的关键码与之比较，就可以知道下一步应该到哪棵子树去查询(这一过程是递归的)。</p>
+<p>   查询过程很清晰，就是根据被查询关键码与当前结点关键码的比较情况，决定是向左走还是向右走。遇到要查询关键码时成功结束，返回关键码的关联值；在无路可走时失败结束。</p>
+<h4 id="23-bst的删除">2.3 BST的删除</h4>
+<p>  假设已经确定应该删除结点 $q$，它是其父结点 $p$ 的左子结点(为 $p$ 的右子结点的情况类似)，这时有两种情况：</p>
+<ul>
+<li>$q$ 是叶结点，这时只需要将 $p$ 到 $q$ 的引用置为None，删除就完成了。</li>
+</ul>
+<div align=center><img src="./bst_5.png" width="500" heigth="300"></div>
+<ul>
+<li>
+<p>$q$ 不是叶结点，那么就不能简单删除，需要把 $q$ 的子树连接到删除 $q$ 以后的树中，而且要宝成关键码的顺序。此时可分为三种情况：</p>
+<ul>
+<li>如果 $q$ 没有左子树，有右子树，此时只需要把 $q$ 的右子树直接改作其父结点 $p$ 的左子树;</li>
+</ul>
+<div align=center><img src="./bst_6.png" width="500" heigth="300"></div>
+<ul>
+<li>如果 $q$ 有左子树，没有右子树，此时只需要把 $q$ 的左子树直接改作其父结点 $p$ 的左子树；</li>
+</ul>
+<div align=center><img src="./bst_7.png" width="500" heigth="300"></div>
+<ul>
+<li>如果 $q$ 既有左子树，又有右子树，此时先找到 $q$ 的左子树的最右结点，设为 $r$，显然它没有右子树。用 $q$ 的左子树作为 $p$ 的左子结点，并将 $q$ 的右子树作为 $r$ 的右子树。</li>
+</ul>
+<div align=center><img src="./bst_8.png" width="500" heigth="250"></div>
+</li>
+</ul>
+<p><strong>注</strong>： 以上三种情况中，第2种和第3种实际上也可以合并成一种。</p>
+<h4 id="24-bst的实现代码">2.4 BST的实现代码</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python3" data-lang="python3"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Assoc</span>(object):
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__init__</span>(self, key, value):
+        self<span style="color:#f92672">.</span>key <span style="color:#f92672">=</span> key
+        self<span style="color:#f92672">.</span>value <span style="color:#f92672">=</span> value
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__lt__</span>(self, other):
+        <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>key <span style="color:#f92672">&lt;</span> other<span style="color:#f92672">.</span>key
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__le__</span>(self, other):
+        <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>key <span style="color:#f92672">&lt;=</span> other<span style="color:#f92672">.</span>key
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__str__</span>(self):
+        <span style="color:#66d9ef">return</span> f<span style="color:#e6db74">&#39;Assoc(</span><span style="color:#e6db74">{self.key}</span><span style="color:#e6db74">, </span><span style="color:#e6db74">{self.value}</span><span style="color:#e6db74">)&#39;</span>
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">BinTNode</span>(object):
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__init__</span>(self, data, left<span style="color:#f92672">=</span><span style="color:#66d9ef">None</span>, right<span style="color:#f92672">=</span><span style="color:#66d9ef">None</span>):
+        self<span style="color:#f92672">.</span>data <span style="color:#f92672">=</span> data
+        self<span style="color:#f92672">.</span>left <span style="color:#f92672">=</span> left
+        self<span style="color:#f92672">.</span>right <span style="color:#f92672">=</span> right
+
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">BSTree</span>(object):
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__init__</span>(self):
+        self<span style="color:#f92672">.</span>_root <span style="color:#f92672">=</span> <span style="color:#66d9ef">None</span>
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">is_empty</span>(self):
+        <span style="color:#66d9ef">return</span> <span style="color:#f92672">not</span> self<span style="color:#f92672">.</span>_root
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">search</span>(self, key):
+        cur <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>_root
+
+        <span style="color:#66d9ef">while</span> <span style="color:#f92672">not</span> cur:
+            entry <span style="color:#f92672">=</span> cur<span style="color:#f92672">.</span>data
+            <span style="color:#66d9ef">if</span> key <span style="color:#f92672">&lt;</span> entry<span style="color:#f92672">.</span>key:
+                cur <span style="color:#f92672">=</span> cur<span style="color:#f92672">.</span>left
+            <span style="color:#66d9ef">elif</span> key <span style="color:#f92672">&gt;</span> entry<span style="color:#f92672">.</span>key:
+                cur <span style="color:#f92672">=</span> cur<span style="color:#f92672">.</span>right
+            <span style="color:#66d9ef">else</span>:
+                <span style="color:#66d9ef">return</span> entry<span style="color:#f92672">.</span>value
+            
+        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">None</span>
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">insert</span>(self, key, value):
+
+        <span style="color:#66d9ef">if</span> self<span style="color:#f92672">.</span>is_empty():
+            self<span style="color:#f92672">.</span>_root <span style="color:#f92672">=</span> BinTNode(Assoc(key, value)) 
+            <span style="color:#66d9ef">return</span>
+
+        cur <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>_root
+        <span style="color:#66d9ef">while</span> <span style="color:#66d9ef">True</span>:
+            entry <span style="color:#f92672">=</span> cur<span style="color:#f92672">.</span>data
+
+            <span style="color:#66d9ef">if</span> key <span style="color:#f92672">&lt;</span> entry<span style="color:#f92672">.</span>key:
+                <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> cur<span style="color:#f92672">.</span>left:
+                    cur<span style="color:#f92672">.</span>left <span style="color:#f92672">=</span> BinTNode(Assoc(key, value))
+                    <span style="color:#66d9ef">return</span>
+                cur <span style="color:#f92672">=</span> cur<span style="color:#f92672">.</span>left
+            <span style="color:#66d9ef">elif</span> key <span style="color:#f92672">&gt;</span> entry<span style="color:#f92672">.</span>key:
+                <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> cur<span style="color:#f92672">.</span>right:
+                    cur<span style="color:#f92672">.</span>right <span style="color:#f92672">=</span> BinTNode(Assoc(key, value))
+                    <span style="color:#66d9ef">return</span>
+                cur <span style="color:#f92672">=</span> cur<span style="color:#f92672">.</span>right
+            <span style="color:#66d9ef">else</span>:
+                cur<span style="color:#f92672">.</span>data<span style="color:#f92672">.</span>value <span style="color:#f92672">=</span> value
+                <span style="color:#66d9ef">return</span>
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">values</span>(self):
+        cur, stack <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>_root, SStack()
+
+        <span style="color:#66d9ef">while</span> cur <span style="color:#f92672">or</span> <span style="color:#f92672">not</span> stack<span style="color:#f92672">.</span>is_empty():
+            <span style="color:#66d9ef">if</span> cur:
+                stack<span style="color:#f92672">.</span>push(cur)
+                <span style="color:#66d9ef">if</span> cur<span style="color:#f92672">.</span>left:
+                    cur <span style="color:#f92672">=</span> cur<span style="color:#f92672">.</span>left
+                <span style="color:#66d9ef">else</span>:
+                    cur <span style="color:#f92672">=</span> <span style="color:#66d9ef">None</span>
+            <span style="color:#66d9ef">else</span>:
+                cur <span style="color:#f92672">=</span> stack<span style="color:#f92672">.</span>pop()
+                <span style="color:#66d9ef">yield</span> cur<span style="color:#f92672">.</span>data<span style="color:#f92672">.</span>value
+            
+                <span style="color:#66d9ef">if</span> cur<span style="color:#f92672">.</span>right:
+                    cur <span style="color:#f92672">=</span> cur<span style="color:#f92672">.</span>right
+                <span style="color:#66d9ef">else</span>:
+                    cur <span style="color:#f92672">=</span> <span style="color:#66d9ef">None</span>
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">entries</span>(self):
+        <span style="color:#66d9ef">if</span> cur:
+            stack<span style="color:#f92672">.</span>push(cur)
+            <span style="color:#66d9ef">if</span> cur<span style="color:#f92672">.</span>left:
+                cur <span style="color:#f92672">=</span> cur<span style="color:#f92672">.</span>left
+            <span style="color:#66d9ef">else</span>:
+                cur <span style="color:#f92672">=</span> <span style="color:#66d9ef">None</span>
+        <span style="color:#66d9ef">else</span>:
+            cur <span style="color:#f92672">=</span> stack<span style="color:#f92672">.</span>pop()
+            <span style="color:#66d9ef">yield</span> cur<span style="color:#f92672">.</span>data<span style="color:#f92672">.</span>key, cur<span style="color:#f92672">.</span>data<span style="color:#f92672">.</span>value
+        
+            <span style="color:#66d9ef">if</span> cur<span style="color:#f92672">.</span>right:
+                cur <span style="color:#f92672">=</span> cur<span style="color:#f92672">.</span>right
+            <span style="color:#66d9ef">else</span>:
+                cur <span style="color:#f92672">=</span> <span style="color:#66d9ef">None</span>
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">delete</span>(self, key):
+        p, q <span style="color:#f92672">=</span> <span style="color:#66d9ef">None</span>, self<span style="color:#f92672">.</span>_root
+
+        <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> q:
+            <span style="color:#66d9ef">return</span>
+        
+        <span style="color:#66d9ef">while</span> q <span style="color:#f92672">and</span> key <span style="color:#f92672">!=</span> q<span style="color:#f92672">.</span>data<span style="color:#f92672">.</span>key:
+            p <span style="color:#f92672">=</span> q
+            <span style="color:#66d9ef">if</span> key <span style="color:#f92672">&lt;</span> q<span style="color:#f92672">.</span>data<span style="color:#f92672">.</span>key:
+                q <span style="color:#f92672">=</span> q<span style="color:#f92672">.</span>left
+            <span style="color:#66d9ef">else</span>:
+                q <span style="color:#f92672">=</span> q<span style="color:#f92672">.</span>right
+            
+            <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> q:
+                <span style="color:#66d9ef">return</span>
+
+        <span style="color:#75715e"># q.left is None</span>
+        <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> q<span style="color:#f92672">.</span>left:
+            <span style="color:#66d9ef">if</span> p <span style="color:#f92672">is</span> <span style="color:#66d9ef">None</span>:
+                self<span style="color:#f92672">.</span>_root <span style="color:#f92672">=</span> q<span style="color:#f92672">.</span>right
+            <span style="color:#66d9ef">elif</span> q <span style="color:#f92672">is</span> p<span style="color:#f92672">.</span>left:
+                p<span style="color:#f92672">.</span>left <span style="color:#f92672">=</span> q<span style="color:#f92672">.</span>right
+            <span style="color:#66d9ef">else</span>:   <span style="color:#75715e"># q is p.right</span>
+                p<span style="color:#f92672">.</span>right <span style="color:#f92672">=</span> q<span style="color:#f92672">.</span>right
+            <span style="color:#66d9ef">return</span>
+
+        <span style="color:#75715e"># q.left is not None and q.right is None</span>
+        <span style="color:#66d9ef">if</span> q<span style="color:#f92672">.</span>left <span style="color:#f92672">and</span> <span style="color:#f92672">not</span> q<span style="color:#f92672">.</span>right:
+            <span style="color:#66d9ef">if</span> p <span style="color:#f92672">is</span> <span style="color:#66d9ef">None</span>:
+                self<span style="color:#f92672">.</span>_root <span style="color:#f92672">=</span> q<span style="color:#f92672">.</span>right
+            <span style="color:#66d9ef">elif</span> q <span style="color:#f92672">is</span> p<span style="color:#f92672">.</span>left:
+                p<span style="color:#f92672">.</span>left <span style="color:#f92672">=</span> q<span style="color:#f92672">.</span>left
+            <span style="color:#66d9ef">else</span>:  <span style="color:#75715e"># q is p.right</span>
+                p<span style="color:#f92672">.</span>right <span style="color:#f92672">=</span> q<span style="color:#f92672">.</span>left
+            <span style="color:#66d9ef">return</span>
+        
+        r <span style="color:#f92672">=</span> q<span style="color:#f92672">.</span>left
+        <span style="color:#66d9ef">while</span> r<span style="color:#f92672">.</span>right:
+            r <span style="color:#f92672">=</span> r<span style="color:#f92672">.</span>right
+        
+        r<span style="color:#f92672">.</span>right <span style="color:#f92672">=</span> q<span style="color:#f92672">.</span>right
+        <span style="color:#66d9ef">if</span> p <span style="color:#f92672">is</span> <span style="color:#66d9ef">None</span>:
+            self<span style="color:#f92672">.</span>_root <span style="color:#f92672">=</span> q<span style="color:#f92672">.</span>left
+        <span style="color:#66d9ef">elif</span> q <span style="color:#f92672">is</span> p<span style="color:#f92672">.</span>left:
+            p<span style="color:#f92672">.</span>left <span style="color:#f92672">=</span> q<span style="color:#f92672">.</span>left
+        <span style="color:#66d9ef">else</span>:  <span style="color:#75715e"># q is p.right</span>
+            p<span style="color:#f92672">.</span>right <span style="color:#f92672">=</span> q<span style="color:#f92672">.</span>left
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">build_bst</span>(entries):
+    bst <span style="color:#f92672">=</span> BSTree()
+
+    <span style="color:#66d9ef">for</span> k, v <span style="color:#f92672">in</span> entries:
+        bst<span style="color:#f92672">.</span>insert(k, v)
+
+    <span style="color:#66d9ef">return</span> bst</code></pre></div>
+<h3 id="3-参考">3 参考</h3>
+<p>[1] 《数据结构与算法 Python语言描述》 裘宗燕 著 机械工业出版社， 2015.12</p>
+
+    </div>
+    <div class="article-footer">
+
+    </div>
+  </article>
+</div><nav class="bar bar-footer clearfix" data-stick-bottom>
+    <div class="bar-inner">
+        <ul class="pager pull-left">
+            <li class="prev">
+                <a href="https://wst-casd.github.io/wst.github.io/2021/06/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E4%B9%8B%E4%BC%98%E5%85%88%E9%98%9F%E5%88%97/" title="数据结构基础之优先队列"><i
+                        class="icon icon-angle-left"
+                        aria-hidden="true"></i><span>&nbsp;&nbsp;下一篇</span></a>
+            </li>
+            <li class="next">
+                <a href="https://wst-casd.github.io/wst.github.io/2021/07/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%B9%B3%E8%A1%A1%E4%BA%8C%E5%8F%89%E6%A0%91/"
+                    title="数据结构基础之平衡二叉树"><span>上一篇&nbsp;&nbsp;</span><i
+                        class="icon icon-angle-right" aria-hidden="true"></i></a>
+            </li>
+            
+            <li class="toggle-toc">
+                <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false"
+                    title="文章目录" role="button">
+                    <span>[&nbsp;</span><span>文章目录</span>
+                    <i class="text-collapsed icon icon-anchor"></i>
+                    <i class="text-in icon icon-close"></i>
+                    <span>]</span>
+                </a>
+            </li>
+        </ul>
+        <div class="bar-right">
+            <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter"
+                data-mobile-sites="weibo,qq,qzone"></div>
+        </div>
+    </div>
+</nav>
+
+
+</main><footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+<ul class="social-links">
+    <li><a href="https://github.com/wst-casd" target="_blank" title="github" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-github"></i></a></li>
+</ul>
+  <div class="copyright">
+    &copy;2021  -
+    2022
+    
+  </div>
+</footer>
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/katex.min.css" integrity="sha384-t5CR+zwDAROtph0PXGte6ia8heboACF9R5l/DiY+WZ3P2lxNgvJkQk5n7GPvLMYw" crossorigin="anonymous">
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/katex.min.js" integrity="sha384-FaFLTlohFghEIZkw6VGwmf9ISTubWAVYW8tG8+w2LAIftJEULZABrF9PPFv+tVkH" crossorigin="anonymous"></script>
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/contrib/auto-render.min.js" integrity="sha384-bHBqxz8fokvgoJ/sc17HODNxa42TlaEhB+w8ZJXTc2nZf1VgEaFZeZvT4Mznfz0v" crossorigin="anonymous"
+    onload="renderMathInElement(document.body);"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+                delimiters: [
+                    {left: "$$", right: "$$", display: true},
+                    {left: "$", right: "$", display: false}
+                ]
+            });
+    });
+ </script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+<script>
+    window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/highlight.min.js"></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/python.min.js" defer></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/javascript.min.js" defer></script><script>
+    hljs.configure({
+        tabReplace: '    ', 
+        classPrefix: ''     
+        
+    })
+    hljs.initHighlightingOnLoad();
+</script>
+<script src="https://wst-casd.github.io/wst.github.io/js/application.min.bdeb64b910570b6c41badc6a05b7afb0c8ad9efd8525de3c7257d59e786326a3.js"></script>
+<script src="https://wst-casd.github.io/wst.github.io/js/plugin.min.51ff8c7317566f82259170fa36e09c4493adc9b9378b427a01ad3f017ebac7dd.js"></script>
+
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(未命名)',
+            },
+            ROOT_URL: 'https:\/\/wst-casd.github.io\/wst.github.io\/',
+            CONTENT_URL: 'https:\/\/wst-casd.github.io\/wst.github.io\/\/searchindex.json ',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script type="text/javascript" src="https://wst-casd.github.io/wst.github.io/js/insight.min.a343cd9a5a7698336b28ef3a7c16a3a1b1d2d5fb17dc8ed04022bbe08cc5459073a15bdafa3a8a58cdd56080784bdd69fa70b1ae8597565c799c57ed00f0e120.js" defer></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/tocbot/4.12.2/tocbot.min.js"></script>
+<script>
+    tocbot.init({
+        
+        tocSelector: '.js-toc',
+        
+        contentSelector: '.js-toc-content',
+        
+        headingSelector: 'h1, h2, h3',
+        
+        hasInnerContainers: true,
+    });
+</script>
+
+
+  </body>
+</html>

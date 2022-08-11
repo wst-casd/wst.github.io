@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <title>
+        wst_dreg&#39;s blog</title>
+        <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    
+    <meta name="theme-color" content="#000000" />
+    
+    <meta http-equiv="window-target" content="_top" />
+    
+    
+    
+    <meta name="generator" content="Hugo 0.71.1 with theme pure" />
+    <title>wst_dreg&#39;s blog</title>
+    
+    <link rel="alternate" type="application/rss+xml" href="https://wst-casd.github.io/wst.github.io/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/index.xml" title="wst_dreg's blog" />
+    
+    <link rel="stylesheet" href="https://wst-casd.github.io/wst.github.io/css/style.min.ed1876313d7769da6b3d0f9eeb3dadae8e266a095740130e67acfe46eb4c19b2.css">
+    
+    <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.15.10/styles/github.min.css" async>
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/tocbot/4.12.2/tocbot.min.css" async>
+    <meta property="og:title" content="二叉树" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://wst-casd.github.io/wst.github.io/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" />
+<meta property="og:updated_time" content="2021-07-05T07:53:40+08:00" />
+<meta itemprop="name" content="二叉树">
+<meta itemprop="description" content=""><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="二叉树"/>
+<meta name="twitter:description" content=""/>
+
+    <!--[if lte IE 9]>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+      <![endif]-->
+
+    <!--[if lt IE 9]>
+        <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+      <![endif]-->
+  </head>
+
+  
+  
+
+  <body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage"><header class="header" itemscope itemtype="http://schema.org/WPHeader">
+    <div class="slimContent">
+      <div class="navbar-header">
+        <div class="profile-block text-center">
+          <a id="avatar" href="https://github.com/wst-casd" target="_blank">
+            <img class="img-circle img-rotate" src="https://wst-casd.github.io/wst.github.io/avatar.png" width="200" height="200">
+          </a>
+          <h2 id="name" class="hidden-xs hidden-sm">wst_dreg</h2>
+          <h3 id="title" class="hidden-xs hidden-sm hidden-md">千里之行，始于足下</h3>
+          <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i>Shanghai, China</small>
+        </div><div class="search" id="search-form-wrap">
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i
+                        class="icon icon-search"></i></button>
+            </span>
+        </div>
+        <div class="ins-search">
+            <div class="ins-search-mask"></div>
+            <div class="ins-search-container">
+                <div class="ins-input-wrapper">
+                    <input type="text" class="ins-search-input" placeholder="想要查找什么..."
+                        x-webkit-speech />
+                    <button type="button" class="close ins-close ins-selectable" data-dismiss="modal"
+                        aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="ins-section-wrapper">
+                    <div class="ins-section-container"></div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+        <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+        <ul class="nav navbar-nav main-nav">
+            <li class="menu-item menu-item-home">
+                <a href="/wst.github.io/">
+                    <i class="icon icon-home-fill"></i>
+                  <span class="menu-title">主页</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-archives">
+                <a href="/wst.github.io/posts/">
+                    <i class="icon icon-archives-fill"></i>
+                  <span class="menu-title">归档</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-about">
+                <a href="/wst.github.io/about/">
+                    <i class="icon icon-cup-fill"></i>
+                  <span class="menu-title">关于我</span>
+                </a>
+            </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+<aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content"><p>暂无</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+      <div class="widget">
+    <h3 class="widget-title"> 分类</h3>
+    <div class="widget-body">
+        <ul class="category-list">
+            <li class="category-list-item"><a href="https://wst-casd.github.io/wst.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" class="category-list-link">数据结构与算法</a><span class="category-list-count">16</span></li>
+        </ul>
+    </div>
+</div>
+      
+<div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+        <ul class="recent-post-list list-unstyled no-thumbnail">
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://wst-casd.github.io/wst.github.io/2021/11/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E4%B9%8B%E6%A1%B6%E6%8E%92%E5%BA%8F/" class="title">数据结构基础之桶排序</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2021-11-17 07:53:40 &#43;0800 CST" itemprop="datePublished">2021-11-17</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://wst-casd.github.io/wst.github.io/2021/11/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E4%B9%8B%E8%AE%A1%E6%95%B0%E6%8E%92%E5%BA%8F/" class="title">数据结构基础之计数排序</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2021-11-10 07:53:40 &#43;0800 CST" itemprop="datePublished">2021-11-10</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://wst-casd.github.io/wst.github.io/2021/11/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%A0%86%E6%8E%92%E5%BA%8F/" class="title">数据结构基础之堆排序</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2021-11-06 07:53:40 &#43;0800 CST" itemprop="datePublished">2021-11-06</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://wst-casd.github.io/wst.github.io/2021/11/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/" class="title">数据结构基础之归并排序</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2021-11-02 07:53:40 &#43;0800 CST" itemprop="datePublished">2021-11-02</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://wst-casd.github.io/wst.github.io/2021/10/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/" class="title">数据结构基础之快速排序</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2021-10-25 07:53:40 &#43;0800 CST" itemprop="datePublished">2021-10-25</time>
+                    </p>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+  </div>
+</aside>
+
+    
+    
+<main class="main" role="main">
+    <article class="content article article-tags post-type-list" itemscope="">
+        <header class="article-header">
+            <h1 itemprop="name" class="hidden-xs">二叉树</h1>
+            <p class="text-muted hidden-xs">共 18 个标签</p>
+            <nav role="navigation" id="nav-main" class="okayNav">
+                <ul>
+                    <li><a href="https://wst-casd.github.io/wst.github.io/tags">All</a></li>
+                    <li><a href="https://wst-casd.github.io/wst.github.io/tags/%E4%BA%8C%E5%8F%89%E6%8E%92%E5%BA%8F%E6%A0%91/">二叉排序树</a></li>
+                    <li><a href="https://wst-casd.github.io/wst.github.io/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/">二叉树</a></li>
+                    <li><a href="https://wst-casd.github.io/wst.github.io/tags/%E4%BC%98%E5%85%88%E9%98%9F%E5%88%97/">优先队列</a></li>
+                    <li><a href="https://wst-casd.github.io/wst.github.io/tags/%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F/">冒泡排序</a></li>
+                    <li><a href="https://wst-casd.github.io/wst.github.io/tags/%E5%A0%86/">堆</a></li>
+                    <li><a href="https://wst-casd.github.io/wst.github.io/tags/%E5%A0%86%E6%8E%92%E5%BA%8F/">堆排序</a></li>
+                    <li><a href="https://wst-casd.github.io/wst.github.io/tags/%E5%A0%86%E6%A0%88/">堆栈</a></li>
+                    <li><a href="https://wst-casd.github.io/wst.github.io/tags/%E5%AE%8C%E5%85%A8%E4%BA%8C%E5%8F%89%E6%A0%91/">完全二叉树</a></li>
+                    <li><a href="https://wst-casd.github.io/wst.github.io/tags/%E5%B9%B3%E8%A1%A1%E4%BA%8C%E5%8F%89%E6%A0%91/">平衡二叉树</a></li>
+                    <li><a href="https://wst-casd.github.io/wst.github.io/tags/%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/">归并排序</a></li>
+                    <li><a href="https://wst-casd.github.io/wst.github.io/tags/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/">快速排序</a></li>
+                    <li><a href="https://wst-casd.github.io/wst.github.io/tags/%E6%8E%92%E5%BA%8F/">排序</a></li>
+                    <li><a href="https://wst-casd.github.io/wst.github.io/tags/%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F/">插入排序</a></li>
+                    <li><a href="https://wst-casd.github.io/wst.github.io/tags/%E6%A0%91/">树</a></li>
+                    <li><a href="https://wst-casd.github.io/wst.github.io/tags/%E6%A1%B6%E6%8E%92%E5%BA%8F/">桶排序</a></li>
+                    <li><a href="https://wst-casd.github.io/wst.github.io/tags/%E8%AE%A1%E6%95%B0%E6%8E%92%E5%BA%8F/">计数排序</a></li>
+                    <li><a href="https://wst-casd.github.io/wst.github.io/tags/%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F/">选择排序</a></li>
+                    <li><a href="https://wst-casd.github.io/wst.github.io/tags/%E9%98%9F%E5%88%97/">队列</a></li>
+                </ul>
+            </nav>
+        </header>
+        
+        <div class="article-body">
+            <div class="col-md-6"><article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
+    <div class="panel-body">
+        <div class="article-meta">
+            <time datetime="2021-07-05 07:53:40 &#43;0800 CST"
+                itemprop="datePublished">2021-07-05</time>
+        </div>
+        <h3 class="article-title" itemprop="name">
+            <a class="article-link" href="https://wst-casd.github.io/wst.github.io/2021/07/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E4%B9%8B%E4%BA%8C%E5%8F%89%E6%8E%92%E5%BA%8F%E6%A0%91/">数据结构基础之二叉排序树</a>
+        </h3>
+    </div>
+    <div class="panel-footer">
+        <a href="https://wst-casd.github.io/wst.github.io/tags/%E6%A0%91" class="label label-default mb">树</a>
+        <a href="https://wst-casd.github.io/wst.github.io/tags/%E4%BA%8C%E5%8F%89%E6%A0%91" class="label label-default mb">二叉树</a>
+        <a href="https://wst-casd.github.io/wst.github.io/tags/%E4%BA%8C%E5%8F%89%E6%8E%92%E5%BA%8F%E6%A0%91" class="label label-default mb">二叉排序树</a>
+    </div>
+</article>
+            </div>
+            <div class="col-md-6"><article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
+    <div class="panel-body">
+        <div class="article-meta">
+            <time datetime="2021-06-20 07:53:40 &#43;0800 CST"
+                itemprop="datePublished">2021-06-20</time>
+        </div>
+        <h3 class="article-title" itemprop="name">
+            <a class="article-link" href="https://wst-casd.github.io/wst.github.io/2021/06/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%A0%86/">数据结构基础之堆</a>
+        </h3>
+    </div>
+    <div class="panel-footer">
+        <a href="https://wst-casd.github.io/wst.github.io/tags/%E6%A0%91" class="label label-default mb">树</a>
+        <a href="https://wst-casd.github.io/wst.github.io/tags/%E4%BA%8C%E5%8F%89%E6%A0%91" class="label label-default mb">二叉树</a>
+        <a href="https://wst-casd.github.io/wst.github.io/tags/%E5%AE%8C%E5%85%A8%E4%BA%8C%E5%8F%89%E6%A0%91" class="label label-default mb">完全二叉树</a>
+        <span class="label label-default mb">···</span>
+    </div>
+</article>
+            </div>
+            <div class="col-md-6"><article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
+    <div class="panel-body">
+        <div class="article-meta">
+            <time datetime="2021-06-13 06:53:40 &#43;0800 CST"
+                itemprop="datePublished">2021-06-13</time>
+        </div>
+        <h3 class="article-title" itemprop="name">
+            <a class="article-link" href="https://wst-casd.github.io/wst.github.io/2021/06/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E4%B9%8B%E6%A0%91/">数据结构基础之树</a>
+        </h3>
+    </div>
+    <div class="panel-footer">
+        <a href="https://wst-casd.github.io/wst.github.io/tags/%E6%A0%91" class="label label-default mb">树</a>
+        <a href="https://wst-casd.github.io/wst.github.io/tags/%E4%BA%8C%E5%8F%89%E6%A0%91" class="label label-default mb">二叉树</a>
+    </div>
+</article>
+            </div>
+        </div>
+    </article>
+</main><footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+<ul class="social-links">
+    <li><a href="https://github.com/wst-casd" target="_blank" title="github" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-github"></i></a></li>
+</ul>
+  <div class="copyright">
+    &copy;2021  -
+    2022
+    
+  </div>
+</footer>
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/katex.min.css" integrity="sha384-t5CR+zwDAROtph0PXGte6ia8heboACF9R5l/DiY+WZ3P2lxNgvJkQk5n7GPvLMYw" crossorigin="anonymous">
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/katex.min.js" integrity="sha384-FaFLTlohFghEIZkw6VGwmf9ISTubWAVYW8tG8+w2LAIftJEULZABrF9PPFv+tVkH" crossorigin="anonymous"></script>
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/contrib/auto-render.min.js" integrity="sha384-bHBqxz8fokvgoJ/sc17HODNxa42TlaEhB+w8ZJXTc2nZf1VgEaFZeZvT4Mznfz0v" crossorigin="anonymous"
+    onload="renderMathInElement(document.body);"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+                delimiters: [
+                    {left: "$$", right: "$$", display: true},
+                    {left: "$", right: "$", display: false}
+                ]
+            });
+    });
+ </script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+<script>
+    window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/highlight.min.js"></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/python.min.js" defer></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/javascript.min.js" defer></script><script>
+    hljs.configure({
+        tabReplace: '    ', 
+        classPrefix: ''     
+        
+    })
+    hljs.initHighlightingOnLoad();
+</script>
+<script src="https://wst-casd.github.io/wst.github.io/js/application.min.bdeb64b910570b6c41badc6a05b7afb0c8ad9efd8525de3c7257d59e786326a3.js"></script>
+<script src="https://wst-casd.github.io/wst.github.io/js/plugin.min.51ff8c7317566f82259170fa36e09c4493adc9b9378b427a01ad3f017ebac7dd.js"></script>
+
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(未命名)',
+            },
+            ROOT_URL: 'https:\/\/wst-casd.github.io\/wst.github.io\/',
+            CONTENT_URL: 'https:\/\/wst-casd.github.io\/wst.github.io\/\/searchindex.json ',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script type="text/javascript" src="https://wst-casd.github.io/wst.github.io/js/insight.min.a343cd9a5a7698336b28ef3a7c16a3a1b1d2d5fb17dc8ed04022bbe08cc5459073a15bdafa3a8a58cdd56080784bdd69fa70b1ae8597565c799c57ed00f0e120.js" defer></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/tocbot/4.12.2/tocbot.min.js"></script>
+<script>
+    tocbot.init({
+        
+        tocSelector: '.js-toc',
+        
+        contentSelector: '.js-toc-content',
+        
+        headingSelector: 'h1, h2, h3',
+        
+        hasInnerContainers: true,
+    });
+</script>
+
+  </body>
+</html>

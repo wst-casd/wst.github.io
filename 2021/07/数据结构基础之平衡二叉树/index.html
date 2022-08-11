@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <title>
+        数据结构基础之平衡二叉树 - wst_dreg&#39;s blog
+      </title>
+        <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    
+    <meta name="theme-color" content="#000000" />
+    
+    <meta http-equiv="window-target" content="_top" />
+    
+    
+    <meta name="description" content="平衡二叉排序树的基本考虑是：如果树中的每个结点的左右子树的高度差不多(&amp;ldquo;平衡&amp;rdquo;)，整个树的结构也会比较好，不会出现特" />
+    <meta name="generator" content="Hugo 0.71.1 with theme pure" />
+    <title>数据结构基础之平衡二叉树 - wst_dreg&#39;s blog</title>
+    
+    
+    <link rel="stylesheet" href="https://wst-casd.github.io/wst.github.io/css/style.min.ed1876313d7769da6b3d0f9eeb3dadae8e266a095740130e67acfe46eb4c19b2.css">
+    
+    <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.15.10/styles/github.min.css" async>
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/tocbot/4.12.2/tocbot.min.css" async>
+    <meta property="og:title" content="数据结构基础之平衡二叉树" />
+<meta property="og:description" content="平衡二叉排序树的基本考虑是：如果树中的每个结点的左右子树的高度差不多(&ldquo;平衡&rdquo;)，整个树的结构也会比较好，不会出现特" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://wst-casd.github.io/wst.github.io/2021/07/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%B9%B3%E8%A1%A1%E4%BA%8C%E5%8F%89%E6%A0%91/" />
+<meta property="article:published_time" content="2021-07-07T07:53:40+08:00" />
+<meta property="article:modified_time" content="2021-07-07T07:53:40+08:00" />
+<meta itemprop="name" content="数据结构基础之平衡二叉树">
+<meta itemprop="description" content="平衡二叉排序树的基本考虑是：如果树中的每个结点的左右子树的高度差不多(&ldquo;平衡&rdquo;)，整个树的结构也会比较好，不会出现特">
+<meta itemprop="datePublished" content="2021-07-07T07:53:40&#43;08:00" />
+<meta itemprop="dateModified" content="2021-07-07T07:53:40&#43;08:00" />
+<meta itemprop="wordCount" content="3924">
+
+
+
+<meta itemprop="keywords" content="树,平衡二叉树," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="数据结构基础之平衡二叉树"/>
+<meta name="twitter:description" content="平衡二叉排序树的基本考虑是：如果树中的每个结点的左右子树的高度差不多(&ldquo;平衡&rdquo;)，整个树的结构也会比较好，不会出现特"/>
+
+    <!--[if lte IE 9]>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+      <![endif]-->
+
+    <!--[if lt IE 9]>
+        <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+      <![endif]-->
+  </head>
+
+  
+  
+
+  <body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage"><header class="header" itemscope itemtype="http://schema.org/WPHeader">
+    <div class="slimContent">
+      <div class="navbar-header">
+        <div class="profile-block text-center">
+          <a id="avatar" href="https://github.com/wst-casd" target="_blank">
+            <img class="img-circle img-rotate" src="https://wst-casd.github.io/wst.github.io/avatar.png" width="200" height="200">
+          </a>
+          <h2 id="name" class="hidden-xs hidden-sm">wst_dreg</h2>
+          <h3 id="title" class="hidden-xs hidden-sm hidden-md">千里之行，始于足下</h3>
+          <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i>Shanghai, China</small>
+        </div><div class="search" id="search-form-wrap">
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i
+                        class="icon icon-search"></i></button>
+            </span>
+        </div>
+        <div class="ins-search">
+            <div class="ins-search-mask"></div>
+            <div class="ins-search-container">
+                <div class="ins-input-wrapper">
+                    <input type="text" class="ins-search-input" placeholder="想要查找什么..."
+                        x-webkit-speech />
+                    <button type="button" class="close ins-close ins-selectable" data-dismiss="modal"
+                        aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="ins-section-wrapper">
+                    <div class="ins-section-container"></div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+        <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+        <ul class="nav navbar-nav main-nav">
+            <li class="menu-item menu-item-home">
+                <a href="/wst.github.io/">
+                    <i class="icon icon-home-fill"></i>
+                  <span class="menu-title">主页</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-archives">
+                <a href="/wst.github.io/posts/">
+                    <i class="icon icon-archives-fill"></i>
+                  <span class="menu-title">归档</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-about">
+                <a href="/wst.github.io/about/">
+                    <i class="icon icon-cup-fill"></i>
+                  <span class="menu-title">关于我</span>
+                </a>
+            </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+<aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content"><p>暂无</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+      <div class="widget">
+    <h3 class="widget-title"> 分类</h3>
+    <div class="widget-body">
+        <ul class="category-list">
+            <li class="category-list-item"><a href="https://wst-casd.github.io/wst.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" class="category-list-link">数据结构与算法</a><span class="category-list-count">16</span></li>
+        </ul>
+    </div>
+</div>
+      
+<div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+        <ul class="recent-post-list list-unstyled no-thumbnail">
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://wst-casd.github.io/wst.github.io/2021/11/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E4%B9%8B%E6%A1%B6%E6%8E%92%E5%BA%8F/" class="title">数据结构基础之桶排序</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2021-11-17 07:53:40 &#43;0800 CST" itemprop="datePublished">2021-11-17</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://wst-casd.github.io/wst.github.io/2021/11/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E4%B9%8B%E8%AE%A1%E6%95%B0%E6%8E%92%E5%BA%8F/" class="title">数据结构基础之计数排序</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2021-11-10 07:53:40 &#43;0800 CST" itemprop="datePublished">2021-11-10</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://wst-casd.github.io/wst.github.io/2021/11/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%A0%86%E6%8E%92%E5%BA%8F/" class="title">数据结构基础之堆排序</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2021-11-06 07:53:40 &#43;0800 CST" itemprop="datePublished">2021-11-06</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://wst-casd.github.io/wst.github.io/2021/11/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/" class="title">数据结构基础之归并排序</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2021-11-02 07:53:40 &#43;0800 CST" itemprop="datePublished">2021-11-02</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://wst-casd.github.io/wst.github.io/2021/10/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/" class="title">数据结构基础之快速排序</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2021-10-25 07:53:40 &#43;0800 CST" itemprop="datePublished">2021-10-25</time>
+                    </p>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+  </div>
+</aside>
+
+    
+    
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <h4 class="toc-title">文章目录</h4>
+    <nav id="toc" class="js-toc toc">
+
+    </nav>
+  </div>
+</aside>
+<main class="main" role="main"><div class="content">
+  <article id="-" class="article article-type-" itemscope
+    itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      <h1 itemprop="name">
+  <a
+    class="article-title"
+    href="/wst.github.io/2021/07/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%B9%B3%E8%A1%A1%E4%BA%8C%E5%8F%89%E6%A0%91/"
+    >数据结构基础之平衡二叉树</a
+  >
+</h1>
+
+      <div class="article-meta">
+        
+<span class="article-date">
+  <i class="icon icon-calendar-check"></i>&nbsp;
+<a href="https://wst-casd.github.io/wst.github.io/2021/07/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%B9%B3%E8%A1%A1%E4%BA%8C%E5%8F%89%E6%A0%91/" class="article-date">
+  <time datetime="2021-07-07 07:53:40 &#43;0800 CST" itemprop="datePublished">2021-07-07</time>
+</a>
+</span>
+<span class="article-category">
+  <i class="icon icon-folder"></i>&nbsp;
+  <a class="article-category-link" href="/wst.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"> 数据结构与算法 </a>
+</span>  
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>&nbsp;
+    <a class="article-tag-link" href="/wst.github.io/tags/%E6%A0%91/"> 树 </a>
+    <a class="article-tag-link" href="/wst.github.io/tags/%E5%B9%B3%E8%A1%A1%E4%BA%8C%E5%8F%89%E6%A0%91/"> 平衡二叉树 </a>
+  </span>
+
+      </div>
+    </div>
+    <div class="article-entry marked-body js-toc-content" itemprop="articleBody">
+      <p>  平衡二叉排序树的基本考虑是：如果树中的每个结点的左右子树的高度差不多(&ldquo;平衡&rdquo;)，整个树的结构也会比较好，不会出现特别长的路径。</p>
+<h3 id="1-定义">1 定义</h3>
+<p><strong>平衡二叉树</strong>（Balanced Binary Tree 或 Height-Balanced Tree）又称为AVL树，其实就是一棵平衡的二叉排序树，AVL树或者是一棵空树，或者其左右子树都是平衡的二叉排序树，且左子树和右子树的深度之差的绝对值不超过1。</p>
+<p>什么是<strong>平衡因子</strong>？</p>
+<p>  平衡二叉树上结点的 平衡因子 BF(Balanced Factor) 定义为该结点的左子树深度减去它的右子树的深度，平衡二叉树上所有结点的平衡因子只可能是 -1，0，1。</p>
+<p>下图1和图2，是分别2棵平衡二叉树和一棵非平衡二叉树的的例子。</p>
+<div align=center><img src="./avl_1.png" width="600" heigth="300"></div>
+</br>
+<div align=center><img src="./avl_2.png" width="300" heigth="300"></div>
+<h3 id="2-平衡二叉树的实现">2 平衡二叉树的实现</h3>
+<p>平衡二叉树(AVL树)也是二叉排序树，因此，在AVL树上的查询就是在普通二叉排序树上的查询，能在O(log$n$) 的时间内完成。</p>
+<p>   首先，把AVL树结点类的定义为二叉树结点类(详情见<a href="https://wst-casd.github.io/wst.github.io/2021/07/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E4%B9%8B%E4%BA%8C%E5%8F%89%E6%8E%92%E5%BA%8F%E6%A0%91/"> 二叉排序树的实现 </a>)的子类，增加一个平衡因子(bf)属性。类的类的初始化方法设置这个属性：
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python3" data-lang="python3"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">AVLTNode</span>(BinTNode):
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__init__</span>(self, data):
+        BinTNode<span style="color:#f92672">.</span>__init__(self, data)
+        self<span style="color:#f92672">.</span>bf <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span></code></pre></div></p>
+<p>  AVL树是一种二叉排序树，将AVL树类定义为BSTree的子类，所有不改变结构的方法都可以继承，但实现插入和删除操作的方法需要重新定义，因为现在需要考平衡的问题，这是本类的特殊需求。
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python3" data-lang="python3"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">AVLTree</span>(BSTree):
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__init__</span>(self):
+        BSTree<span style="color:#f92672">.</span>__init__(self)</code></pre></div></p>
+<h4 id="21-插入操作">2.1 插入操作</h4>
+<p>  AVL树上的插入操作，前一部分等同于普通二叉树的插入，即首先通过查询在树中找到插入位置，而后加入新结点。这时出现了新问题：原来树是平衡的，但在插入结点后可能使树中的某个局部失衡，应考虑必要的调整。</p>
+<p><strong>插入后的失衡和调整</strong>
+</br>
+  首先，应该能看到在查询插入位置的过程中，如果所有途径结点的BF值均为0，那么实际插入结点不会导致这些结点失衡，只是需要把它们的的BF值修改为1或-1，其余结点的BF值不变，整棵树也不会失衡。实际插入后，更改途径结点的BF值，操作就完成了。
+</br>
+  如果不是上面这种情况，那么一定存在一棵包含实际插入结点的<strong>最小非平衡子树</strong>，即那棵包含新结点插入位置的，且根结点的BF非0的最小子树。如果插入新结点后这棵子树仍保持平衡，而且高度不变，那么整棵二叉排序树也将保持平衡。进一步说，如果插入新结点后的结构调整和BF值的修改都能在该子树内部的一条路径上完成，插入操作的复杂度将不超过O(log$n$)。
+</br>
+  假设插入结点所在的最小非平衡子树的根结点为$a$，如下图3中(1)所示，其左子树较高(右子树较高的情况类似)。如果插入点在$a$的右子树(较低的子树)，插入结点后只需要调整$a$之下直至插入点的路径上所有结点的BF值(根据$a$结点的选择，这些结点的BF值原来都为0)，并将$a$的BF值修改为0。由于以$a$为根的子树的高度没变，插入和调整对其他部分没有影响，整个树保持平衡，插入操作圆满完成。</p>
+<div align=center><img src="./avl_3.png" width="600" heigth="250"></div>
+</br>
+<p>  如果新结点插入在$a$的左子树，就会破坏$a$的平衡，如图3中(2)所示。在这种情况下，就要设法恢复结点$a$的平衡。注意，新结点插入在$a$的较高子树，也说明另一子树较低。从较高子树中调整结点到另一个子树，降低其高度，就能恢复$a$的平衡。这样调整后维持子树的高度不变，整个插入操作对子树之外部分的平衡没有任何影响。</p>
+<p>  下面考虑具体的恢复操作，分为四种情况处理：</p>
+<ul>
+<li>LL型调整($a$的左子树较高，新结点插入在$a$的左子树的左子树)</li>
+<li>LR型调整($a$的左子树较高，新结点插入在$a$的左子树的右子树)</li>
+<li>RR型调整($a$的右子树较高，新结点插入在$a$的右子树的右子树)</li>
+<li>RL型调整($a$的右子树较高，新结点插入在$a$的右子树的左子树)</li>
+</ul>
+<p>易见，RR对应LL，RL对应LR，分别插入在$a$的外侧和内侧。在下面的讨论中，只需要关心以$a$为根的这棵子树，整棵树的其他部分没有任何变化。</p>
+<p><strong>LL(RR)失衡和调整</strong>：情况如图4所示。插入操作前，$a$的以$b$为根的子树较高。由于$a$是最小非平衡子树的根，$b$的平衡因子一定为0，其两棵子树等高。注意，图中子树$A$/$B$/$C$高度相同，这棵子树的中序遍历序列为$A b B a C$，其中大写字母表示相应子树的中序遍历序列。</p>
+<p>  新结点插入图4中子树$A$，导致结点$a$失衡，如图4中(2)所示。在这种情况下做一个顺时针旋转，调整结点$b$和$a$的位置关系：将结点$b$作为调整后的子树的根结点，$a$作为$b$的右子结点，$b$原来的右子树作为$a$的左子树。不难看出，现在$a$的两棵子树等高，b的两棵子树也等高，且与插入前以$a$为根的子树同样高。调整完成。易见，调整后的中序遍历序列没有被破坏。</p>
+<div align=center><img src="./avl_4.png" width="600" heigth="250"></div>
+<p>  将LL调整实现为AVL树里的一个静态方法：
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python3" data-lang="python3"><span style="color:#a6e22e">@staticmethod</span>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">LL</span>(a, b):
+    a<span style="color:#f92672">.</span>left <span style="color:#f92672">=</span> b<span style="color:#f92672">.</span>right
+    b<span style="color:#f92672">.</span>right <span style="color:#f92672">=</span> a
+    a<span style="color:#f92672">.</span>bf <span style="color:#f92672">=</span> b<span style="color:#f92672">.</span>bf <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+    <span style="color:#66d9ef">return</span> b</code></pre></div></p>
+<p>这里假定函数的两个参数分别为最小非平衡子树的根$a$和其左子树的根$b$，这个方法返回调整后的得到的新子树的根。</p>
+<p>  与之对应的是<strong>RR失衡和调整</strong>，处理方法和LL调整完全对称。两个参数分别是最小非平衡子树的根$a$和其右子树的根$b$，方法也返回新子树的根：
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python3" data-lang="python3"><span style="color:#a6e22e">@staticmethod</span>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">RR</span>(a, b):
+    a<span style="color:#f92672">.</span>right <span style="color:#f92672">=</span> b<span style="color:#f92672">.</span>left
+    b<span style="color:#f92672">.</span>left <span style="color:#f92672">=</span> a
+    a<span style="color:#f92672">.</span>bf <span style="color:#f92672">=</span> b<span style="color:#f92672">.</span>bf <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+    <span style="color:#66d9ef">return</span> b</code></pre></div></p>
+<p>  <strong>LR(RL)失衡和调整</strong>：情况如下图5所示。插入操作前，$a$的以$b$为根的左子树较高。同样，由于$a$是最小非平衡子树的根，$b$的平衡因子为0。由于新结点要插入在左子树的内侧，考虑$b$的右子结点$c$。以$c$为根的子树与$A$和$D$一样高，新结点将插入到以$c$为根的子树中。注意，由于$a$是最小非平衡子树的根，$c$的平衡因子同样为0。以$a$为根的子树的中序遍历序列是$AbBcCaD$，其中大写字母表示相应子树的中序遍历序列。</p>
+<div align=center><img src="./avl_5.png" width="600" heigth="250"></div>
+<p>  新结点可能插入$c$的左子树或者右子树，插入后$a$失衡，情况如图5中(2)所示。接下来的调整是把$c$提升为这棵树的根，以$b$和$a$分别作为$c$的左右子结点。根据新结点究竟插入在原来$c$的哪棵子树，$b$和$a$的平衡因子可能为0或者1/-1，无论如何都不失衡，子树的新根结点$c$的平衡因子为0。调整后的子树的高度和插入前一样高，无论新结点插入$B$还是$C$，结果序列都正确排序。</p>
+<p>  下面实现LR调整的静态方法，和前面LL调整一样，$a$和$b$分别为最小非平衡子树的根及其左子结点，函数返回调整后的子树的根结点。
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python3" data-lang="python3"><span style="color:#a6e22e">@staticmethod</span>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">LR</span>(a, b):
+    c <span style="color:#f92672">=</span> b<span style="color:#f92672">.</span>right
+    b<span style="color:#f92672">.</span>right, a<span style="color:#f92672">.</span>left <span style="color:#f92672">=</span> c<span style="color:#f92672">.</span>left, c<span style="color:#f92672">.</span>right
+    c<span style="color:#f92672">.</span>left, c<span style="color:#f92672">.</span>right <span style="color:#f92672">=</span> b, a
+
+    <span style="color:#66d9ef">if</span> c<span style="color:#f92672">.</span>bf <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
+        a<span style="color:#f92672">.</span>bf <span style="color:#f92672">=</span> b<span style="color:#f92672">.</span>bf <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+        <span style="color:#66d9ef">return</span> c
+    <span style="color:#66d9ef">elif</span> c<span style="color:#f92672">.</span>bf <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>:
+        b<span style="color:#f92672">.</span>bf, a<span style="color:#f92672">.</span>bf <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>
+    <span style="color:#66d9ef">else</span>:
+        b<span style="color:#f92672">.</span>bf, a<span style="color:#f92672">.</span>bf <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>
+
+    c<span style="color:#f92672">.</span>bf <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+    <span style="color:#66d9ef">return</span> c</code></pre></div></p>
+<p>这里有一个特殊情况，就是插入前$b$为叶结点，$c$就是新插入的结点。这种情况也将$c$作为结果子树的根，以$b$和$a$分别作为其左子结点和右子结点。</p>
+<p>  <strong>RL失衡和调整</strong>的情况与LR是对称的，下面是实现该调整的静态方法：
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python3" data-lang="python3"><span style="color:#a6e22e">@staticmethod</span>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">RL</span>(a, b):
+    c <span style="color:#f92672">=</span> b<span style="color:#f92672">.</span>left
+    b<span style="color:#f92672">.</span>left, a<span style="color:#f92672">.</span>right <span style="color:#f92672">=</span> c<span style="color:#f92672">.</span>left, c<span style="color:#f92672">.</span>right
+    c<span style="color:#f92672">.</span>left, c<span style="color:#f92672">.</span>right <span style="color:#f92672">=</span> a, b
+
+    <span style="color:#66d9ef">if</span> c<span style="color:#f92672">.</span>bf <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
+        a<span style="color:#f92672">.</span>bf <span style="color:#f92672">=</span> b<span style="color:#f92672">.</span>bf <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+        <span style="color:#66d9ef">return</span> c
+    <span style="color:#66d9ef">elif</span> c<span style="color:#f92672">.</span>bf <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>:
+        b<span style="color:#f92672">.</span>bf, a<span style="color:#f92672">.</span>bf <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>
+    <span style="color:#66d9ef">else</span>:
+        b<span style="color:#f92672">.</span>bf, a<span style="color:#f92672">.</span>bf <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>
+
+    c<span style="color:#f92672">.</span>bf <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+    <span style="color:#66d9ef">return</span> c</code></pre></div></p>
+<p><strong>总结和分析</strong></p>
+<p>  总结一下前面的讨论：插入新结点后出现失衡的情况只有上面几种，经过局部的旋转调整都可以恢复平衡。具体做法是先插入新结点，发现失衡后只需要在最小不平衡子树的根结点附近做局部调整，就可以把该子树的平衡因子变成0，而且保证这棵子树的高度与插入前相同。另外，所做的调整不会改变树中数据的排序序列。</p>
+<p>  由于插入结点并完成必要调整后，这棵子树与插入前在这个位置的子树高度相同，其结构变化对子树之外的其他部分毫无影响。因此，整棵二叉树中其他结点的平衡因子都不需要修改。随着整棵子树恢复平衡，整棵二叉树也恢复了平衡。</p>
+<p>  插入算法的操作分为几个阶段：首先找到插入位置并实际插入新结点，然后可能需要修改一些结点的平衡因子，发现失衡是做一些局部调整。这里所有的操作都是在树中的一条路径上进行的，所以AVL树插入操作的代价是O(log$n$)。</p>
+<p><strong>插入操作的实现</strong>
+  现在考虑插入操作的具体实现，其操作过程如下：
+</br>
+1）查找新结点的插入位置，并在查找过程中记录遇到的最小不平衡子树的根：</p>
+<ul>
+<li>用一个变量a记录距插入位置最近的平衡因子非0的结点，由于可能需要修改这棵子树，再次过程中用另外一个变量pa记录a的父结点。</li>
+<li>如果不存在这种结点，需要考虑的a就是树根。</li>
+<li>如果在新结点插入后出现失衡，a就是失衡位置。</li>
+<li>实际插入新结点。</li>
+</ul>
+<p>2）修改从a的子结点到新结点的路径上的各结点的平衡因子：</p>
+<ul>
+<li>根据a的定义，这段结点原来的平衡因子都是0。</li>
+<li>插入后用一个扫描变量p从a的子结点开始遍历，如果新结点插入在p的左子树，就把p的的BF改为1，否则改为-1。</li>
+</ul>
+<p>3）检查以a为根的子树是否失衡，失衡时做调整：</p>
+<ul>
+<li>如果a.bf == 0，插入后不会失衡，简单修改平衡因子结束。</li>
+<li>如果a.bf == 1 且新结点插入在a的左子树，就出现了失衡。
+<ul>
+<li>新结点在a的左子结点的左子树时做LL调整。</li>
+<li>新结点在a的左子结点的右子树时做LR调整。</li>
+</ul>
+</li>
+<li>如果a.bf == -1 且新结点插入在a的右子树，就出现了失衡。
+<ul>
+<li>新结点在a的右子结点的右子树时做LL调整。</li>
+<li>新结点在a的右子结点的左子树时做RL调整。</li>
+</ul>
+</li>
+</ul>
+<p>4）连接好调整后的子树，它可能应该作为整棵树的根，或作为a原来的父结点的相应方向的子结点。</p>
+<p>下面是插入操作的具体实现代码：
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python3" data-lang="python3"><span style="color:#a6e22e">@staticmethod</span>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">insert</span>(self, key, value):
+    a <span style="color:#f92672">=</span> p <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>_root
+
+    <span style="color:#66d9ef">if</span> a <span style="color:#f92672">is</span> <span style="color:#66d9ef">None</span>:
+        self<span style="color:#f92672">.</span>_root <span style="color:#f92672">=</span> AVLNode(Assoc(key, value))
+        <span style="color:#66d9ef">return</span>
+    
+    pa <span style="color:#f92672">=</span> q <span style="color:#f92672">=</span> <span style="color:#66d9ef">None</span>
+
+    <span style="color:#75715e"># 确定插入位置，并记录最小非平衡子树位置</span>
+    <span style="color:#75715e"># q为插入点的父结点，a为最小非平衡子树的根结点，pa为a的父亲</span>
+    <span style="color:#66d9ef">while</span> p:
+        <span style="color:#66d9ef">if</span> key <span style="color:#f92672">==</span> p<span style="color:#f92672">.</span>data<span style="color:#f92672">.</span>key:
+            p<span style="color:#f92672">.</span>data<span style="color:#f92672">.</span>value <span style="color:#f92672">=</span> value
+            <span style="color:#66d9ef">return</span>
+        
+        <span style="color:#66d9ef">if</span> p<span style="color:#f92672">.</span>bf <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span>:
+            pa, a <span style="color:#f92672">=</span> q, p
+        
+        q <span style="color:#f92672">=</span> p
+
+        <span style="color:#66d9ef">if</span> key <span style="color:#f92672">&lt;</span> p<span style="color:#f92672">.</span>data<span style="color:#f92672">.</span>key:
+            p <span style="color:#f92672">=</span> p<span style="color:#f92672">.</span>left
+        <span style="color:#66d9ef">else</span>:
+            p <span style="color:#f92672">=</span> p<span style="color:#f92672">.</span>right
+
+    node <span style="color:#f92672">=</span> AVLNode(Assoc(key, value))
+
+    <span style="color:#75715e"># 插入结点</span>
+    <span style="color:#66d9ef">if</span> key <span style="color:#f92672">&lt;</span> q<span style="color:#f92672">.</span>data<span style="color:#f92672">.</span>key:
+        q<span style="color:#f92672">.</span>left <span style="color:#f92672">=</span> node
+    <span style="color:#66d9ef">else</span>:
+        q<span style="color:#f92672">.</span>right <span style="color:#f92672">=</span> node
+
+    <span style="color:#75715e"># 判断是插入到了a这棵子树的左子树还是右子树</span>
+    <span style="color:#66d9ef">if</span> key <span style="color:#f92672">&lt;</span> a<span style="color:#f92672">.</span>data<span style="color:#f92672">.</span>key:
+        p <span style="color:#f92672">=</span> b <span style="color:#f92672">=</span> a<span style="color:#f92672">.</span>left
+        d <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+    <span style="color:#66d9ef">else</span>:
+        p <span style="color:#f92672">=</span> b <span style="color:#f92672">=</span> a<span style="color:#f92672">.</span>right
+        d <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>
+
+    <span style="color:#75715e"># b为a的子结点，修改b到新结点路径上的个结点的BF值</span>
+    <span style="color:#66d9ef">while</span> p <span style="color:#f92672">!=</span> node:
+        <span style="color:#66d9ef">if</span> key <span style="color:#f92672">&lt;</span> p<span style="color:#f92672">.</span>data<span style="color:#f92672">.</span>key:
+            p<span style="color:#f92672">.</span>bf <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+            p <span style="color:#f92672">=</span> p<span style="color:#f92672">.</span>left
+        <span style="color:#66d9ef">else</span>:
+            p<span style="color:#f92672">.</span>bf <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>
+            p <span style="color:#f92672">=</span> p<span style="color:#f92672">.</span>right
+
+    <span style="color:#66d9ef">if</span> a<span style="color:#f92672">.</span>bf <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
+        a<span style="color:#f92672">.</span>bf <span style="color:#f92672">=</span> d
+        <span style="color:#66d9ef">return</span>
+    
+    <span style="color:#66d9ef">if</span> a<span style="color:#f92672">.</span>bf <span style="color:#f92672">==</span> <span style="color:#f92672">-</span>d:
+        a<span style="color:#f92672">.</span>bf <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+        <span style="color:#66d9ef">return</span>
+
+    <span style="color:#66d9ef">if</span> d <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>:
+        <span style="color:#66d9ef">if</span> b<span style="color:#f92672">.</span>bf <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>:
+            b <span style="color:#f92672">=</span> AVLTree<span style="color:#f92672">.</span>LL(a, b)
+        <span style="color:#66d9ef">else</span>:
+            b <span style="color:#f92672">=</span> AVLTree<span style="color:#f92672">.</span>LR(a, b)
+    <span style="color:#66d9ef">else</span>:
+        <span style="color:#66d9ef">if</span> b<span style="color:#f92672">.</span>bf <span style="color:#f92672">==</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>:
+            b <span style="color:#f92672">=</span> AVLTree<span style="color:#f92672">.</span>RR(a, b)
+        <span style="color:#66d9ef">else</span>:
+            b <span style="color:#f92672">=</span> AVLTree<span style="color:#f92672">.</span>RL(a, b)
+    
+    <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> pa:
+        self<span style="color:#f92672">.</span>_root <span style="color:#f92672">=</span> b
+    <span style="color:#66d9ef">elif</span> pa<span style="color:#f92672">.</span>left <span style="color:#f92672">==</span> a:
+        pa<span style="color:#f92672">.</span>left <span style="color:#f92672">=</span> b
+    <span style="color:#66d9ef">else</span>:
+        pa<span style="color:#f92672">.</span>right <span style="color:#f92672">=</span> b</code></pre></div></p>
+<h3 id="3-参考">3 参考</h3>
+<p>[1] 《数据结构与算法 Python语言描述》 裘宗燕 著 机械工业出版社， 2015.12</p>
+
+    </div>
+    <div class="article-footer">
+
+    </div>
+  </article>
+</div><nav class="bar bar-footer clearfix" data-stick-bottom>
+    <div class="bar-inner">
+        <ul class="pager pull-left">
+            <li class="prev">
+                <a href="https://wst-casd.github.io/wst.github.io/2021/07/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E4%B9%8B%E4%BA%8C%E5%8F%89%E6%8E%92%E5%BA%8F%E6%A0%91/" title="数据结构基础之二叉排序树"><i
+                        class="icon icon-angle-left"
+                        aria-hidden="true"></i><span>&nbsp;&nbsp;下一篇</span></a>
+            </li>
+            <li class="next">
+                <a href="https://wst-casd.github.io/wst.github.io/2021/09/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E4%B9%8B%E6%8E%92%E5%BA%8F/"
+                    title="数据结构基础之排序"><span>上一篇&nbsp;&nbsp;</span><i
+                        class="icon icon-angle-right" aria-hidden="true"></i></a>
+            </li>
+            
+            <li class="toggle-toc">
+                <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false"
+                    title="文章目录" role="button">
+                    <span>[&nbsp;</span><span>文章目录</span>
+                    <i class="text-collapsed icon icon-anchor"></i>
+                    <i class="text-in icon icon-close"></i>
+                    <span>]</span>
+                </a>
+            </li>
+        </ul>
+        <div class="bar-right">
+            <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter"
+                data-mobile-sites="weibo,qq,qzone"></div>
+        </div>
+    </div>
+</nav>
+
+
+</main><footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+<ul class="social-links">
+    <li><a href="https://github.com/wst-casd" target="_blank" title="github" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-github"></i></a></li>
+</ul>
+  <div class="copyright">
+    &copy;2021  -
+    2022
+    
+  </div>
+</footer>
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/katex.min.css" integrity="sha384-t5CR+zwDAROtph0PXGte6ia8heboACF9R5l/DiY+WZ3P2lxNgvJkQk5n7GPvLMYw" crossorigin="anonymous">
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/katex.min.js" integrity="sha384-FaFLTlohFghEIZkw6VGwmf9ISTubWAVYW8tG8+w2LAIftJEULZABrF9PPFv+tVkH" crossorigin="anonymous"></script>
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/contrib/auto-render.min.js" integrity="sha384-bHBqxz8fokvgoJ/sc17HODNxa42TlaEhB+w8ZJXTc2nZf1VgEaFZeZvT4Mznfz0v" crossorigin="anonymous"
+    onload="renderMathInElement(document.body);"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+                delimiters: [
+                    {left: "$$", right: "$$", display: true},
+                    {left: "$", right: "$", display: false}
+                ]
+            });
+    });
+ </script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+<script>
+    window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/highlight.min.js"></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/python.min.js" defer></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/javascript.min.js" defer></script><script>
+    hljs.configure({
+        tabReplace: '    ', 
+        classPrefix: ''     
+        
+    })
+    hljs.initHighlightingOnLoad();
+</script>
+<script src="https://wst-casd.github.io/wst.github.io/js/application.min.bdeb64b910570b6c41badc6a05b7afb0c8ad9efd8525de3c7257d59e786326a3.js"></script>
+<script src="https://wst-casd.github.io/wst.github.io/js/plugin.min.51ff8c7317566f82259170fa36e09c4493adc9b9378b427a01ad3f017ebac7dd.js"></script>
+
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(未命名)',
+            },
+            ROOT_URL: 'https:\/\/wst-casd.github.io\/wst.github.io\/',
+            CONTENT_URL: 'https:\/\/wst-casd.github.io\/wst.github.io\/\/searchindex.json ',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script type="text/javascript" src="https://wst-casd.github.io/wst.github.io/js/insight.min.a343cd9a5a7698336b28ef3a7c16a3a1b1d2d5fb17dc8ed04022bbe08cc5459073a15bdafa3a8a58cdd56080784bdd69fa70b1ae8597565c799c57ed00f0e120.js" defer></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/tocbot/4.12.2/tocbot.min.js"></script>
+<script>
+    tocbot.init({
+        
+        tocSelector: '.js-toc',
+        
+        contentSelector: '.js-toc-content',
+        
+        headingSelector: 'h1, h2, h3',
+        
+        hasInnerContainers: true,
+    });
+</script>
+
+
+  </body>
+</html>

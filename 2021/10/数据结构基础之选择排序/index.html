@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <title>
+        数据结构基础之选择排序 - wst_dreg&#39;s blog
+      </title>
+        <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    
+    <meta name="theme-color" content="#000000" />
+    
+    <meta http-equiv="window-target" content="_top" />
+    
+    
+    <meta name="description" content="1 概念 在插入排序中，每次操作处理哪个记录并不重要，关键在于把被处理记录插入到已排序序列中，因此，可以采取最方便的方式取记录，即按顺序提取。选" />
+    <meta name="generator" content="Hugo 0.71.1 with theme pure" />
+    <title>数据结构基础之选择排序 - wst_dreg&#39;s blog</title>
+    
+    
+    <link rel="stylesheet" href="https://wst-casd.github.io/wst.github.io/css/style.min.ed1876313d7769da6b3d0f9eeb3dadae8e266a095740130e67acfe46eb4c19b2.css">
+    
+    <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.15.10/styles/github.min.css" async>
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/tocbot/4.12.2/tocbot.min.css" async>
+    <meta property="og:title" content="数据结构基础之选择排序" />
+<meta property="og:description" content="1 概念 在插入排序中，每次操作处理哪个记录并不重要，关键在于把被处理记录插入到已排序序列中，因此，可以采取最方便的方式取记录，即按顺序提取。选" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://wst-casd.github.io/wst.github.io/2021/10/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E4%B9%8B%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F/" />
+<meta property="article:published_time" content="2021-10-10T07:53:40+08:00" />
+<meta property="article:modified_time" content="2021-10-10T07:53:40+08:00" />
+<meta itemprop="name" content="数据结构基础之选择排序">
+<meta itemprop="description" content="1 概念 在插入排序中，每次操作处理哪个记录并不重要，关键在于把被处理记录插入到已排序序列中，因此，可以采取最方便的方式取记录，即按顺序提取。选">
+<meta itemprop="datePublished" content="2021-10-10T07:53:40&#43;08:00" />
+<meta itemprop="dateModified" content="2021-10-10T07:53:40&#43;08:00" />
+<meta itemprop="wordCount" content="1506">
+
+
+
+<meta itemprop="keywords" content="排序,选择排序," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="数据结构基础之选择排序"/>
+<meta name="twitter:description" content="1 概念 在插入排序中，每次操作处理哪个记录并不重要，关键在于把被处理记录插入到已排序序列中，因此，可以采取最方便的方式取记录，即按顺序提取。选"/>
+
+    <!--[if lte IE 9]>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+      <![endif]-->
+
+    <!--[if lt IE 9]>
+        <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+      <![endif]-->
+  </head>
+
+  
+  
+
+  <body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage"><header class="header" itemscope itemtype="http://schema.org/WPHeader">
+    <div class="slimContent">
+      <div class="navbar-header">
+        <div class="profile-block text-center">
+          <a id="avatar" href="https://github.com/wst-casd" target="_blank">
+            <img class="img-circle img-rotate" src="https://wst-casd.github.io/wst.github.io/avatar.png" width="200" height="200">
+          </a>
+          <h2 id="name" class="hidden-xs hidden-sm">wst_dreg</h2>
+          <h3 id="title" class="hidden-xs hidden-sm hidden-md">千里之行，始于足下</h3>
+          <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i>Shanghai, China</small>
+        </div><div class="search" id="search-form-wrap">
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i
+                        class="icon icon-search"></i></button>
+            </span>
+        </div>
+        <div class="ins-search">
+            <div class="ins-search-mask"></div>
+            <div class="ins-search-container">
+                <div class="ins-input-wrapper">
+                    <input type="text" class="ins-search-input" placeholder="想要查找什么..."
+                        x-webkit-speech />
+                    <button type="button" class="close ins-close ins-selectable" data-dismiss="modal"
+                        aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="ins-section-wrapper">
+                    <div class="ins-section-container"></div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+        <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+        <ul class="nav navbar-nav main-nav">
+            <li class="menu-item menu-item-home">
+                <a href="/wst.github.io/">
+                    <i class="icon icon-home-fill"></i>
+                  <span class="menu-title">主页</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-archives">
+                <a href="/wst.github.io/posts/">
+                    <i class="icon icon-archives-fill"></i>
+                  <span class="menu-title">归档</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-about">
+                <a href="/wst.github.io/about/">
+                    <i class="icon icon-cup-fill"></i>
+                  <span class="menu-title">关于我</span>
+                </a>
+            </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+<aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content"><p>暂无</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+      <div class="widget">
+    <h3 class="widget-title"> 分类</h3>
+    <div class="widget-body">
+        <ul class="category-list">
+            <li class="category-list-item"><a href="https://wst-casd.github.io/wst.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" class="category-list-link">数据结构与算法</a><span class="category-list-count">16</span></li>
+        </ul>
+    </div>
+</div>
+      
+<div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+        <ul class="recent-post-list list-unstyled no-thumbnail">
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://wst-casd.github.io/wst.github.io/2021/11/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E4%B9%8B%E6%A1%B6%E6%8E%92%E5%BA%8F/" class="title">数据结构基础之桶排序</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2021-11-17 07:53:40 &#43;0800 CST" itemprop="datePublished">2021-11-17</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://wst-casd.github.io/wst.github.io/2021/11/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E4%B9%8B%E8%AE%A1%E6%95%B0%E6%8E%92%E5%BA%8F/" class="title">数据结构基础之计数排序</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2021-11-10 07:53:40 &#43;0800 CST" itemprop="datePublished">2021-11-10</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://wst-casd.github.io/wst.github.io/2021/11/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%A0%86%E6%8E%92%E5%BA%8F/" class="title">数据结构基础之堆排序</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2021-11-06 07:53:40 &#43;0800 CST" itemprop="datePublished">2021-11-06</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://wst-casd.github.io/wst.github.io/2021/11/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/" class="title">数据结构基础之归并排序</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2021-11-02 07:53:40 &#43;0800 CST" itemprop="datePublished">2021-11-02</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://wst-casd.github.io/wst.github.io/2021/10/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/" class="title">数据结构基础之快速排序</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2021-10-25 07:53:40 &#43;0800 CST" itemprop="datePublished">2021-10-25</time>
+                    </p>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+  </div>
+</aside>
+
+    
+    
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <h4 class="toc-title">文章目录</h4>
+    <nav id="toc" class="js-toc toc">
+
+    </nav>
+  </div>
+</aside>
+<main class="main" role="main"><div class="content">
+  <article id="-" class="article article-type-" itemscope
+    itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      <h1 itemprop="name">
+  <a
+    class="article-title"
+    href="/wst.github.io/2021/10/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E4%B9%8B%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F/"
+    >数据结构基础之选择排序</a
+  >
+</h1>
+
+      <div class="article-meta">
+        
+<span class="article-date">
+  <i class="icon icon-calendar-check"></i>&nbsp;
+<a href="https://wst-casd.github.io/wst.github.io/2021/10/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E4%B9%8B%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F/" class="article-date">
+  <time datetime="2021-10-10 07:53:40 &#43;0800 CST" itemprop="datePublished">2021-10-10</time>
+</a>
+</span>
+<span class="article-category">
+  <i class="icon icon-folder"></i>&nbsp;
+  <a class="article-category-link" href="/wst.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"> 数据结构与算法 </a>
+</span>  
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>&nbsp;
+    <a class="article-tag-link" href="/wst.github.io/tags/%E6%8E%92%E5%BA%8F/"> 排序 </a>
+    <a class="article-tag-link" href="/wst.github.io/tags/%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F/"> 选择排序 </a>
+  </span>
+
+      </div>
+    </div>
+    <div class="article-entry marked-body js-toc-content" itemprop="articleBody">
+      <h3 id="1-概念">1 概念</h3>
+<p>  在<a href="https://wst-casd.github.io/wst.github.io/2021/10/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E4%B9%8B%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F/">插入排序</a>中，每次操作处理哪个记录并不重要，关键在于把被处理记录插入到已排序序列中，因此，可以采取最方便的方式取记录，即按顺序提取。选择排序的想法与之对应，这里的重要决策是选择合适记录，只要严格按递增(每次选择最小元素)，简单地顺序排放就能完成排序工作。</p>
+<p>  选择排序的基本思想也很简单：</p>
+<ul>
+<li>维护需要考虑的所有记录中最小的$i$个记录的已排序序列。</li>
+<li>每次从剩余的未排序的记录中选择关键码最小的记录，将其放在已排序序列的后面，作为的第$i$+1个记录，使已排序序列增长。</li>
+<li>以空序列作为排序工作的开始，直到尚未排序的序列里只剩一个元素时(它必然是最大)，只需直接将其放在已排序的记录之后，整个排序完成。</li>
+</ul>
+<p>  在这种基本思想下，还需要解决两个问题：第一是如何选择元素；第二是作出适当安排，尽可能利用现有序列的存储空间，避免另外安排存储。</p>
+<h3 id="2-算法实现">2 算法实现</h3>
+<h4 id="21-直接选择排序">2.1 直接选择排序</h4>
+<p>  最简单的选择方法是顺序扫描序列中的元素，记住遇到的最小元素。一次扫描完毕就找到了一个最小元素。反复扫描就能完成排序工作。</p>
+<div align=center><img src="./img_1.png" width="500" heigth="20"></div>
+<p>  有关排序过程中的基本状态如图1所示。在排序过程中的任何时刻，表的前段积累了一批递增的已排序好的记录，而且它们都不大于任何一个未排序的记录。下一步从未排序段中选出最小的记录，将其放在已排序记录段的后面。这样在只剩一个记录时，其关键码一定最大。</p>
+<p>  这里出现了一个问题：如何腾出紧跟已排序段的那个位置。直接选择排序算法中简单交换这里的元素与未排序段选出的最小记录。这个做法既把新选出的元素存放好，又填补起选走一个元素留下的空位，看起来两全其美。</p>
+<p>例：有关键字序列[40, 32, 70, 65, 40, 48, 28]，下面对其进行选择排序。</p>
+<div align=center><img src="./img_2.png" width="500" heigth="20"></div>
+<p>初始，整个序列无序，遍历序列可知下标6位置的关键字28最小：</p>
+<div align=center><img src="./img_3.png" width="500" heigth="20"></div>
+<p>下标为6最小关键字28的元素与下标0位置的关键字40的元素互换位置，这样得到了序列有序部分的第一个关键字28的原序，而无序部分减少一个关键字的元素：</p>
+<div align=center><img src="./img_4.png" width="500" heigth="20"></div>
+<p>遍历无序序列，可知下标1位置的关键字32最小，正好位置和无序段的第一个序列重合，不用进行交换操作：</p>
+<div align=center><img src="./img_5.png" width="500" heigth="20"></div>
+<p>遍历无序序列，可知下标4位置的关键字40最小:</p>
+<div align=center><img src="./img_6.png" width="500" heigth="20"></div>
+<p>下标4位置的最小关键字40的元素与无序段的第一个下标2位置的关机子为70的元素互换位置：</p>
+<div align=center><img src="./img_7.png" width="500" heigth="20"></div>
+<p>之后的所有操作和之前一样，在无序部分找到最小的关键字，然后与无序部分的第一个关键字交换，有序部分加一，无序部分减一：</p>
+<div align=center><img src="./img_8.png" width="500" heigth="20"></div>
+<div align=center><img src="./img_9.png" width="500" heigth="20"></div>
+<div align=center><img src="./img_10.png" width="500" heigth="20"></div>
+<p>直接选择排序的代码如下：
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python3" data-lang="python3"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">select_sort</span>(lst):
+    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(len(lst)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>):
+        k <span style="color:#f92672">=</span> i
+
+        <span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> range(i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, len(lst)):
+            <span style="color:#66d9ef">if</span> lst[j]<span style="color:#f92672">.</span>key <span style="color:#f92672">&lt;</span> lst[k]<span style="color:#f92672">.</span>key:
+                k <span style="color:#f92672">=</span> j
+        
+        <span style="color:#66d9ef">if</span> k <span style="color:#f92672">!=</span> i:
+            lst[i], lst[k] <span style="color:#f92672">=</span> lst[k], lst[i]</code></pre></div></p>
+<h4 id="22-提高选择的效率">2.2 提高选择的效率</h4>
+<p>  选择排序比较低效，原因在于其中的顺序比较：每次选择一个元素，都要从头做一边完全的比较，在整个排序过程中过了很多重复的比较工作。</p>
+<p>  要想提高选择排序的效率，就需要改变选择方式。重要的是设法记录在做选择的过程中，已做过的关键码比较获得的信息。在这种基本想法下，人们研究了各种树形选择技术，设法通过沿着树中路径比较的方式选出最小元素，也就是说，利用树高度与元素个数之间的对数关系。这种想法的最重要的结果是<a href="">堆排序算法</a>。</p>
+<h3 id="3-算法分析">3 算法分析</h3>
+<p>  从上面的算法过程分析可知，直接选择排序的比较次数和被排序表的初始状态无关。比较的次数总是</p>
+<center>1+2+$\cdots$+($n$-1)=$n\times(n-1)/2$</center>
+算法的是时间复杂度为O($n^2$)。从分析也可以看出，直接选择排序没有适应性。
+<p>  由于存在互换位置的操作，可能造成关键码相同的元素交换次序。造成算法不稳定。可以结合插入排序的移动元素的特点，来使的算法成为稳定的算法，即只需要子找到了最小的记录之后，依次逐个后移$k$之前那些尚未排序的元素，腾出所需的空位后把最小记录存入。具体算法实现如下：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python3" data-lang="python3"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">select_sort</span>(lst):
+    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(len(lst)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>):
+        k <span style="color:#f92672">=</span> i
+
+        <span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> range(i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, len(lst)):
+            <span style="color:#66d9ef">if</span> lst[j]<span style="color:#f92672">.</span>key <span style="color:#f92672">&lt;</span> lst[k]<span style="color:#f92672">.</span>key:
+                k <span style="color:#f92672">=</span> j
+        
+        <span style="color:#66d9ef">if</span> k <span style="color:#f92672">!=</span> i:
+            d <span style="color:#f92672">=</span> lst[k]
+
+            <span style="color:#66d9ef">while</span> k <span style="color:#f92672">&gt;</span> i:
+                lst[k] <span style="color:#f92672">=</span> lst[k<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]
+                k <span style="color:#f92672">-=</span> <span style="color:#ae81ff">1</span>
+
+            lst[i] <span style="color:#f92672">=</span> d</code></pre></div>
+<h3 id="4-参考">4 参考</h3>
+<p>[1] 《数据结构与算法 Python语言描述》 裘宗燕 著 机械工业出版社， 2015.12</p>
+
+    </div>
+    <div class="article-footer">
+
+    </div>
+  </article>
+</div><nav class="bar bar-footer clearfix" data-stick-bottom>
+    <div class="bar-inner">
+        <ul class="pager pull-left">
+            <li class="prev">
+                <a href="https://wst-casd.github.io/wst.github.io/2021/10/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E4%B9%8B%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F/" title="数据结构基础之插入排序"><i
+                        class="icon icon-angle-left"
+                        aria-hidden="true"></i><span>&nbsp;&nbsp;下一篇</span></a>
+            </li>
+            <li class="next">
+                <a href="https://wst-casd.github.io/wst.github.io/2021/10/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F/"
+                    title="数据结构基础之冒泡排序"><span>上一篇&nbsp;&nbsp;</span><i
+                        class="icon icon-angle-right" aria-hidden="true"></i></a>
+            </li>
+            
+            <li class="toggle-toc">
+                <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false"
+                    title="文章目录" role="button">
+                    <span>[&nbsp;</span><span>文章目录</span>
+                    <i class="text-collapsed icon icon-anchor"></i>
+                    <i class="text-in icon icon-close"></i>
+                    <span>]</span>
+                </a>
+            </li>
+        </ul>
+        <div class="bar-right">
+            <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter"
+                data-mobile-sites="weibo,qq,qzone"></div>
+        </div>
+    </div>
+</nav>
+
+
+</main><footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+<ul class="social-links">
+    <li><a href="https://github.com/wst-casd" target="_blank" title="github" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-github"></i></a></li>
+</ul>
+  <div class="copyright">
+    &copy;2021  -
+    2022
+    
+  </div>
+</footer>
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/katex.min.css" integrity="sha384-t5CR+zwDAROtph0PXGte6ia8heboACF9R5l/DiY+WZ3P2lxNgvJkQk5n7GPvLMYw" crossorigin="anonymous">
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/katex.min.js" integrity="sha384-FaFLTlohFghEIZkw6VGwmf9ISTubWAVYW8tG8+w2LAIftJEULZABrF9PPFv+tVkH" crossorigin="anonymous"></script>
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/contrib/auto-render.min.js" integrity="sha384-bHBqxz8fokvgoJ/sc17HODNxa42TlaEhB+w8ZJXTc2nZf1VgEaFZeZvT4Mznfz0v" crossorigin="anonymous"
+    onload="renderMathInElement(document.body);"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+                delimiters: [
+                    {left: "$$", right: "$$", display: true},
+                    {left: "$", right: "$", display: false}
+                ]
+            });
+    });
+ </script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+<script>
+    window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/highlight.min.js"></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/python.min.js" defer></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/javascript.min.js" defer></script><script>
+    hljs.configure({
+        tabReplace: '    ', 
+        classPrefix: ''     
+        
+    })
+    hljs.initHighlightingOnLoad();
+</script>
+<script src="https://wst-casd.github.io/wst.github.io/js/application.min.bdeb64b910570b6c41badc6a05b7afb0c8ad9efd8525de3c7257d59e786326a3.js"></script>
+<script src="https://wst-casd.github.io/wst.github.io/js/plugin.min.51ff8c7317566f82259170fa36e09c4493adc9b9378b427a01ad3f017ebac7dd.js"></script>
+
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(未命名)',
+            },
+            ROOT_URL: 'https:\/\/wst-casd.github.io\/wst.github.io\/',
+            CONTENT_URL: 'https:\/\/wst-casd.github.io\/wst.github.io\/\/searchindex.json ',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script type="text/javascript" src="https://wst-casd.github.io/wst.github.io/js/insight.min.a343cd9a5a7698336b28ef3a7c16a3a1b1d2d5fb17dc8ed04022bbe08cc5459073a15bdafa3a8a58cdd56080784bdd69fa70b1ae8597565c799c57ed00f0e120.js" defer></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/tocbot/4.12.2/tocbot.min.js"></script>
+<script>
+    tocbot.init({
+        
+        tocSelector: '.js-toc',
+        
+        contentSelector: '.js-toc-content',
+        
+        headingSelector: 'h1, h2, h3',
+        
+        hasInnerContainers: true,
+    });
+</script>
+
+
+  </body>
+</html>

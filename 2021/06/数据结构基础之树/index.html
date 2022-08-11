@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <title>
+        数据结构基础之树 - wst_dreg&#39;s blog
+      </title>
+        <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    
+    <meta name="theme-color" content="#000000" />
+    
+    <meta http-equiv="window-target" content="_top" />
+    
+    
+    <meta name="description" content="1 树 树(tree)是一种数据结构，是由有限个($n$个($n&amp;gt;0$))结点组成的具有层次关系的集合，它具有以下的特点： 一个结构如果不空" />
+    <meta name="generator" content="Hugo 0.71.1 with theme pure" />
+    <title>数据结构基础之树 - wst_dreg&#39;s blog</title>
+    
+    
+    <link rel="stylesheet" href="https://wst-casd.github.io/wst.github.io/css/style.min.ed1876313d7769da6b3d0f9eeb3dadae8e266a095740130e67acfe46eb4c19b2.css">
+    
+    <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.15.10/styles/github.min.css" async>
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/tocbot/4.12.2/tocbot.min.css" async>
+    <meta property="og:title" content="数据结构基础之树" />
+<meta property="og:description" content="1 树 树(tree)是一种数据结构，是由有限个($n$个($n&gt;0$))结点组成的具有层次关系的集合，它具有以下的特点： 一个结构如果不空" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://wst-casd.github.io/wst.github.io/2021/06/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E4%B9%8B%E6%A0%91/" />
+<meta property="article:published_time" content="2021-06-13T06:53:40+08:00" />
+<meta property="article:modified_time" content="2021-06-13T06:53:40+08:00" />
+<meta itemprop="name" content="数据结构基础之树">
+<meta itemprop="description" content="1 树 树(tree)是一种数据结构，是由有限个($n$个($n&gt;0$))结点组成的具有层次关系的集合，它具有以下的特点： 一个结构如果不空">
+<meta itemprop="datePublished" content="2021-06-13T06:53:40&#43;08:00" />
+<meta itemprop="dateModified" content="2021-06-13T06:53:40&#43;08:00" />
+<meta itemprop="wordCount" content="3701">
+
+
+
+<meta itemprop="keywords" content="树,二叉树," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="数据结构基础之树"/>
+<meta name="twitter:description" content="1 树 树(tree)是一种数据结构，是由有限个($n$个($n&gt;0$))结点组成的具有层次关系的集合，它具有以下的特点： 一个结构如果不空"/>
+
+    <!--[if lte IE 9]>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+      <![endif]-->
+
+    <!--[if lt IE 9]>
+        <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+      <![endif]-->
+  </head>
+
+  
+  
+
+  <body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage"><header class="header" itemscope itemtype="http://schema.org/WPHeader">
+    <div class="slimContent">
+      <div class="navbar-header">
+        <div class="profile-block text-center">
+          <a id="avatar" href="https://github.com/wst-casd" target="_blank">
+            <img class="img-circle img-rotate" src="https://wst-casd.github.io/wst.github.io/avatar.png" width="200" height="200">
+          </a>
+          <h2 id="name" class="hidden-xs hidden-sm">wst_dreg</h2>
+          <h3 id="title" class="hidden-xs hidden-sm hidden-md">千里之行，始于足下</h3>
+          <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i>Shanghai, China</small>
+        </div><div class="search" id="search-form-wrap">
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i
+                        class="icon icon-search"></i></button>
+            </span>
+        </div>
+        <div class="ins-search">
+            <div class="ins-search-mask"></div>
+            <div class="ins-search-container">
+                <div class="ins-input-wrapper">
+                    <input type="text" class="ins-search-input" placeholder="想要查找什么..."
+                        x-webkit-speech />
+                    <button type="button" class="close ins-close ins-selectable" data-dismiss="modal"
+                        aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="ins-section-wrapper">
+                    <div class="ins-section-container"></div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+        <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+        <ul class="nav navbar-nav main-nav">
+            <li class="menu-item menu-item-home">
+                <a href="/wst.github.io/">
+                    <i class="icon icon-home-fill"></i>
+                  <span class="menu-title">主页</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-archives">
+                <a href="/wst.github.io/posts/">
+                    <i class="icon icon-archives-fill"></i>
+                  <span class="menu-title">归档</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-about">
+                <a href="/wst.github.io/about/">
+                    <i class="icon icon-cup-fill"></i>
+                  <span class="menu-title">关于我</span>
+                </a>
+            </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+<aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content"><p>暂无</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+      <div class="widget">
+    <h3 class="widget-title"> 分类</h3>
+    <div class="widget-body">
+        <ul class="category-list">
+            <li class="category-list-item"><a href="https://wst-casd.github.io/wst.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" class="category-list-link">数据结构与算法</a><span class="category-list-count">16</span></li>
+        </ul>
+    </div>
+</div>
+      
+<div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+        <ul class="recent-post-list list-unstyled no-thumbnail">
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://wst-casd.github.io/wst.github.io/2021/11/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E4%B9%8B%E6%A1%B6%E6%8E%92%E5%BA%8F/" class="title">数据结构基础之桶排序</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2021-11-17 07:53:40 &#43;0800 CST" itemprop="datePublished">2021-11-17</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://wst-casd.github.io/wst.github.io/2021/11/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E4%B9%8B%E8%AE%A1%E6%95%B0%E6%8E%92%E5%BA%8F/" class="title">数据结构基础之计数排序</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2021-11-10 07:53:40 &#43;0800 CST" itemprop="datePublished">2021-11-10</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://wst-casd.github.io/wst.github.io/2021/11/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%A0%86%E6%8E%92%E5%BA%8F/" class="title">数据结构基础之堆排序</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2021-11-06 07:53:40 &#43;0800 CST" itemprop="datePublished">2021-11-06</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://wst-casd.github.io/wst.github.io/2021/11/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/" class="title">数据结构基础之归并排序</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2021-11-02 07:53:40 &#43;0800 CST" itemprop="datePublished">2021-11-02</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://wst-casd.github.io/wst.github.io/2021/10/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/" class="title">数据结构基础之快速排序</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2021-10-25 07:53:40 &#43;0800 CST" itemprop="datePublished">2021-10-25</time>
+                    </p>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+  </div>
+</aside>
+
+    
+    
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <h4 class="toc-title">文章目录</h4>
+    <nav id="toc" class="js-toc toc">
+
+    </nav>
+  </div>
+</aside>
+<main class="main" role="main"><div class="content">
+  <article id="-" class="article article-type-" itemscope
+    itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      <h1 itemprop="name">
+  <a
+    class="article-title"
+    href="/wst.github.io/2021/06/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E4%B9%8B%E6%A0%91/"
+    >数据结构基础之树</a
+  >
+</h1>
+
+      <div class="article-meta">
+        
+<span class="article-date">
+  <i class="icon icon-calendar-check"></i>&nbsp;
+<a href="https://wst-casd.github.io/wst.github.io/2021/06/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E4%B9%8B%E6%A0%91/" class="article-date">
+  <time datetime="2021-06-13 06:53:40 &#43;0800 CST" itemprop="datePublished">2021-06-13</time>
+</a>
+</span>
+<span class="article-category">
+  <i class="icon icon-folder"></i>&nbsp;
+  <a class="article-category-link" href="/wst.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"> 数据结构与算法 </a>
+</span>  
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>&nbsp;
+    <a class="article-tag-link" href="/wst.github.io/tags/%E6%A0%91/"> 树 </a>
+    <a class="article-tag-link" href="/wst.github.io/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/"> 二叉树 </a>
+  </span>
+
+      </div>
+    </div>
+    <div class="article-entry marked-body js-toc-content" itemprop="articleBody">
+      <h3 id="1-树">1 树</h3>
+<p>  <strong>树</strong>(tree)是一种数据结构，是由有限个($n$个($n&gt;0$))结点组成的具有层次关系的集合，它具有以下的特点：</p>
+<ul>
+<li>
+<p>一个结构如果不空，其中就存在着唯一的起始结点，称为<strong>树根</strong>(root)。</p>
+</li>
+<li>
+<p>按结构的连接关系，树根外的其余结点有且只有一个<strong>前驱</strong>，同时，一个结点可以有0个或者多个<strong>后继</strong>。</p>
+</li>
+<li>
+<p>结构里的所有结点都在树根结点通过后继关系可达的结点集合里。</p>
+</li>
+<li>
+<p>结点之间的联系不会形成循环关系。</p>
+</li>
+<li>
+<p>从这种结构里的任意两个结点出发，通过后继关系可达的两个结点集合，或者互不相交，或者一个集合是另一个集合的子集。</p>
+</li>
+</ul>
+<h3 id="2-二叉树">2 二叉树</h3>
+<p>  <strong>二叉树</strong>是一种最简单的树形结构，其特点是树中每个结点至多能关联到两个后继结点。另外一个特点是一个结点关联的后继结点明确地分为左右，或为其左孩子，或为其右孩子。</p>
+<h4 id="21-定义">2.1 定义</h4>
+<p>  二叉树是结点的有穷集合。这个集合或者是空集，或着其中有一个称为根结点的特殊结点，其余结点分属两棵不相交的二叉树，
+这两棵二叉树分别是原根结点的<strong>左子树</strong>和<strong>右子树</strong>。</p>
+<h4 id="22-一些概念">2.2 一些概念</h4>
+<p>  不包含任何结点的二叉树称为空树；只包含一个结点的二叉树是一棵<strong>单点树</strong>；一般而言，一棵二叉树可以包含任意(但有穷多)个结点。</p>
+<p>  一棵二叉树的根结点称为该树的子树根结点的<strong>父结点</strong>；与之对应，子树的根结点称为二叉树树根结点的<strong>子结点</strong>。注意，父结点和子结点是相对的概念。</p>
+<p>  可认为从父结点到子结点有一条连线，称为从父结点到子结点的边。注意，这种边有方向，形成一种单方向的父结点/子结点关系(<strong>父子关系</strong>)。另外，父结点相同的两个结点互称兄弟结点。易见，一棵二叉树(或其中子树)的根结点$r$是这棵树中所有其他结点的祖先结点，而这些结点都是$r$的子孙结点。</p>
+<p>  在二叉树里有些结点的两棵子树都是空，没有子结点。这种结点称为<strong>树叶</strong>(结点)。树中其余结点称为分支结点。注意：分支结点可以只有一个分支(一个子结点)。对于二叉树，只有一个分支时必须说明它是其左分支还是右分支。</p>
+<p>  一个结点的子结点个数称为该结点的<strong>度数</strong>。显然，二叉树中叶子结点的度数为0，分支结点的度数可以为1或者2。</p>
+<p><strong>路径，结点的层和树的高度</strong></p>
+<p>  根据祖先结点和子孙结点的定义，从一个祖先结点到其任何子孙结点都存在一系列的边，形成从前者到后者的联系。这样一系列首尾相连的边称为树中的一条<strong>路径</strong>，路径中边的数目称为该路径的长度。统一起见，认为从每个结点到其自身有一条长度为0的路径。</p>
+<p>  显然，从一棵二叉树的根结点到该树中的任一结点都有路径，而且路径唯一。对二叉树的任意子树也有同样的结论。</p>
+<p>  二叉树是一种层次结构。将其树根看作最高层元素，如果有子结点，其子结点看作下一层元素。约定二叉树根的层数为0。对于$k$层的结点，其子结点是$k+1$层的元素。如此下去，二叉树的所有结点可以按这种关系分为一层层的元素。易知：从树根到树中任一结点的路径长度就是该结点所在的层数，也称为该结点的层数。</p>
+<p>  一棵二叉树的<strong>高度</strong>(深度)是树中结点的最大层数(也就是这棵树里的最长路径的长度)。树的高度是二叉树的整体性质，只有根结点的树高度为0。</p>
+<h4 id="23-二叉树的性质">2.3 二叉树的性质</h4>
+<p>  二叉树有很多非常有用的性质，现在讨论其中一些性质。作为数据结构，二叉树最重要的性质就是树的高度和树中可以容纳的最大结点个数之间的关系。</p>
+<p>  <strong>性质 1</strong> 在非空二叉树中第$i$层中至多有$2^i$个结点($i\geq0$)</p>
+<p>  <strong>性质 2</strong> 高度为$h$的二叉树至多有$2^{h+1}-1$个结点($h\geq0$)</p>
+<p>  <strong>性质 3</strong> 对于任何非空二叉树 <em>$T$</em>，如果其叶结点的个数为$n_0$，度数为2的结点个数为$n_2$，那么$n_0=n_2+1$</p>
+<p><strong>满二叉树，扩充二叉树</strong></p>
+<p>  <strong>满二叉树</strong>：如果二叉树中所有分支结点的度数都是2，则称它为一棵满二叉树。</p>
+<div align=center><img src="./FullBT.png" width="200" heigth="200"></div>
+<p>  <strong>扩充二叉树</strong>： 对二叉树 $T$，加入足够多的新叶结点，使 $T$ 的原有结点都变成度数为2的分支结点，得到的二叉树称为 $T$ 的扩充二叉树。扩充二叉树中新增的结点称为其<strong>外部结点</strong>。空树的扩充二叉树约定为空树。</p>
+<p><strong>完全二叉树</strong></p>
+<p>  对于一棵高度为$h$的二叉树，如果其第$0$层至第$h-1$层的结点都满(也就是说，对所有$0\leq i \leq{h-1}$，第$i$层有$2^i$个结点)，如果最下一层的结点不满，但所有结点在最左边连续排列，空位都在右边，这样的二叉树就是一棵<strong>完全二叉树</strong>。</p>
+<div align=center><img src="./CompleteBT.png" width="200" heigth="200"></div>
+<p>  <strong>性质 4</strong> $n$个结点的完全二叉树高度$h=\lfloor \log_2n\rfloor$，即为不大于$\log_2n$的最大整数。</p>
+<p>  <strong>性质 5</strong> (完全二叉树)如果$n$个结点的完全二叉树的结点按层次并按从左往右的顺序从0开始编号，对任一结点$i(0\leq i \leq{n-1})$都有：</p>
+<p>  1) 序号为$0$的结点是根。</p>
+<p>  2) 对于$i&gt;0$，其父结点的编号为$(i-1)/2$。</p>
+<p>  3) 对于$ 2\times i+1 &lt; n$，其左子结点序号为$2 \times i+1$，否则它无左子结点。</p>
+<p>  4) 对于$ 2\times i+2 &lt; n$，其右子结点序号为$2 \times i+2$，否则它无右子结点。</p>
+<h3 id="3-抽象数据类型">3 抽象数据类型</h3>
+<p>  下面是一个基于的二叉树抽象数据类型的定义：
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python3" data-lang="python3">ADT BinTree:
+    BinTree(self, data, left, right)             <span style="color:#75715e"># 创建操作，创建一个新二叉树</span>
+    is_empty(self)                               <span style="color:#75715e"># 判断self是否为一个空二叉树</span>
+    num_nodes(self)                              <span style="color:#75715e"># 求二叉树的结点个数</span>
+    data(self)                                   <span style="color:#75715e"># 获取二叉树的根结点的数据</span>
+    left(self)                                   <span style="color:#75715e"># 获取二叉树的左子树</span>
+    right(self)                                  <span style="color:#75715e"># 获取二叉树的右子树</span>
+    set_left(self, btree)                        <span style="color:#75715e"># 用btree取代原来的左子树</span>
+    set_right(self, btree)                       <span style="color:#75715e"># 用btree取代原来的右子树</span>
+    traversal(self)                              <span style="color:#75715e"># 删除栈里最后压入的元素，并将其返回</span>
+    forall(self)                                 <span style="color:#75715e"># 取得栈顶的元素</span></code></pre></div></p>
+<h3 id="4-二叉树的遍历">4 二叉树的遍历</h3>
+<p>  二叉树的结构比较复杂，因此，系统化遍历有多种可能的方式，下面将讨论几种不同的算法。遍历二叉树就像前面讨论过的状态搜索，以根作为起点，存在两种基本方式：</p>
+<ul>
+<li>深度优先遍历：顺着一条路径尽可能向前搜索，必要时回溯。</li>
+<li>广度优先遍历：在所有路径上齐头并进。</li>
+</ul>
+<p><strong>深度优先遍历</strong></p>
+<p>  按深度优先方法遍历一个二叉树，需要做三件事：遍历左子树，遍历右子树和访问根结点(有可能需要操作其中的数据)。</p>
+<div align=center><img src="./tree_2.png" width="200" heigth="200"></div>
+<p>  选择这三项的不同执行顺序，就可以得到三种常见的遍历顺序：</p>
+<ul>
+<li>先序遍历(按照DLR顺序)</li>
+<li>中序遍历(按照LDR)</li>
+<li>后序遍历(按照LRD)</li>
+</ul>
+<p>由于二叉树的子树也是二叉树，将一种具体的遍历顺序继续运用到子树的遍历中，就形成了一种遍历二叉树的统一方法。</p>
+<p><strong>广度优先遍历</strong></p>
+<p>  现在考虑按宽度优先遍历二叉树。如前所述，宽度优先是按路径长度由近到远地访问结点。对二叉树做这种遍历，也就是按二叉树的层次吃逐层访问树中各结点。与状态空间搜索的情况一样，这种遍历不能写成递归过程。</p>
+<p>  在宽度优先遍历中只规定了逐层访问，并没有规定同一层结点的访问顺序。但从算法的角度看，必须规定一个顺序，常见的是每一层里都从左到右逐个访问。实现这个算法需要一个队列 <a href="https://wst-casd.github.io/wst.github.io/2021/05/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E4%B9%8B%E9%98%9F%E5%88%97/">( 数据结构基础之队列 )</a> 作为缓存。</p>
+<h3 id="5-二叉树的实现">5 二叉树的实现</h3>
+<h4 id="51-二叉树的list实现">5.1 二叉树的list实现</h4>
+<p>  二叉树是递归结构，Python的list也是递归结构。基于list类型很容易实现二叉树，例如采用下面的设计：</p>
+<ul>
+<li>空树采用None表示</li>
+<li>非空二叉树用包含三个元素的表 [$d, l, r$] 表示，其中
+<ul>
+<li>$d$表示存在根结点的元素</li>
+<li>$l$和$r$是两棵子树，采用与整个二叉树同样的list表示</li>
+</ul>
+</li>
+</ul>
+<p>例如下面是一棵二叉树的list表示：</p>
+<blockquote>
+<p>[&lsquo;A&rsquo;,  [&lsquo;B&rsquo;, None, None],<br>
+  [&lsquo;C&rsquo;, [&lsquo;D&rsquo;, [&lsquo;F&rsquo;, None, None],<br>
+       [&lsquo;G&rsquo;, None, None]],<br>
+    [&lsquo;E&rsquo;, [&lsquo;H&rsquo;, None, None],<br>
+       [&lsquo;I&rsquo;, None, None]]]]</p>
+</blockquote>
+<div align=center><img src="./tree_1.png" width="200" heigth="200"></div>
+<p>  相关的二叉树的实现和操作都很简单。下面是实现基本操作的一组函数定义：
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python3" data-lang="python3"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">BinTree</span>(data, left<span style="color:#f92672">=</span><span style="color:#66d9ef">None</span>, right<span style="color:#f92672">=</span><span style="color:#66d9ef">None</span>):
+    <span style="color:#66d9ef">return</span> [data, left, right]
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">is_empty_BinTree</span>(btree):
+    <span style="color:#66d9ef">return</span> btree <span style="color:#f92672">is</span> <span style="color:#66d9ef">None</span>
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">root</span>(btree):
+    <span style="color:#66d9ef">return</span> btree[<span style="color:#ae81ff">0</span>]
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">left</span>(btree):
+    btree[<span style="color:#ae81ff">1</span>]
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">left</span>(btree):
+    btree[<span style="color:#ae81ff">2</span>]
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">set_root</span>(btree, data):
+    btree[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> data
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">set_left</span>(btree, left):
+    btree[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> left
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">set_right</span>(btree, right):
+    btree[<span style="color:#ae81ff">2</span>] <span style="color:#f92672">=</span> right</code></pre></div></p>
+<p><strong>注意</strong>： 以上代码实现，并没有考虑参数合法性问题。</p>
+<p>  基于上述构造函数的嵌套调用，可以做出任意复杂的二叉树，例如：</p>
+<p>  t1 = BinTree(2, BinTree(4), BinTree(8))</p>
+<p>这相当于写：t1 = [2, [4, None, None], [8, None, None]]</p>
+<p>  可以修改二叉树中的任何部分，例如：
+  set_left(left(t1), BinTree(5))</p>
+<p>其中把t1的左子树的左子树换成了BinTree(5), 使t1的值变成：</p>
+<p>    [2, [4, [5, None, None], None], [8, None, None]]</p>
+<h4 id="52-二叉树的类实现">5.2 二叉树的类实现</h4>
+<p>  二叉树的类实现
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python3" data-lang="python3"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">BinTree</span>(object):
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__init__</span>(self, data<span style="color:#f92672">=</span><span style="color:#66d9ef">None</span>, left<span style="color:#f92672">=</span><span style="color:#66d9ef">None</span>, right<span style="color:#f92672">=</span><span style="color:#66d9ef">None</span>):
+        self<span style="color:#f92672">.</span>_data <span style="color:#f92672">=</span> data
+        self<span style="color:#f92672">.</span>_left <span style="color:#f92672">=</span> left
+        self<span style="color:#f92672">.</span>_right <span style="color:#f92672">=</span> right
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">is_empty</span>(self):
+        <span style="color:#66d9ef">return</span> <span style="color:#f92672">not</span> self<span style="color:#f92672">.</span>_data
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">root</span>(self):
+        <span style="color:#66d9ef">return</span> self
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">left_child</span>(self):
+        <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>_left
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">right_child</span>(self):
+        <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>_right
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">set_left</span>(self, left_node):
+        self<span style="color:#f92672">.</span>_left <span style="color:#f92672">=</span> left_node
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">set_right</span>(self, right_node):
+        self<span style="color:#f92672">.</span>_right <span style="color:#f92672">=</span> right_node
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">count_BinTNodes</span>(self):
+        <span style="color:#66d9ef">if</span> self<span style="color:#f92672">.</span>is_empty():
+            <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>
+
+        count <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+        <span style="color:#66d9ef">if</span> self<span style="color:#f92672">.</span>_left:
+            count <span style="color:#f92672">+=</span> self<span style="color:#f92672">.</span>_left<span style="color:#f92672">.</span>count_BinTNodes()
+
+        <span style="color:#66d9ef">if</span> self<span style="color:#f92672">.</span>_right:
+            count <span style="color:#f92672">+=</span> self<span style="color:#f92672">.</span>_right<span style="color:#f92672">.</span>count_BinTNodes()
+
+        <span style="color:#66d9ef">return</span> count
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">sum_BinTNodes</span>(self):
+        <span style="color:#66d9ef">if</span> self<span style="color:#f92672">.</span>is_empty():
+            <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>
+
+        sum <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>_data
+        <span style="color:#66d9ef">if</span> self<span style="color:#f92672">.</span>_left:
+            cosumunt <span style="color:#f92672">+=</span> self<span style="color:#f92672">.</span>_left<span style="color:#f92672">.</span>sum_BinTNodes()
+
+        <span style="color:#66d9ef">if</span> self<span style="color:#f92672">.</span>_right:
+            sum <span style="color:#f92672">+=</span> self<span style="color:#f92672">.</span>_right<span style="color:#f92672">.</span>sum_BinTNodes()
+
+        <span style="color:#66d9ef">return</span> sum
+
+    <span style="color:#75715e"># 先序遍历二叉树(递归实现）</span>
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">pre_order</span>(self, proc):
+        <span style="color:#66d9ef">if</span> self<span style="color:#f92672">.</span>is_empty():
+            <span style="color:#66d9ef">return</span> 
+
+        proc(self<span style="color:#f92672">.</span>_data)
+
+        <span style="color:#66d9ef">if</span> self<span style="color:#f92672">.</span>_left:
+            self<span style="color:#f92672">.</span>_left<span style="color:#f92672">.</span>pre_order(proc)
+
+        <span style="color:#66d9ef">if</span> self<span style="color:#f92672">.</span>_right:
+            self<span style="color:#f92672">.</span>_right<span style="color:#f92672">.</span>pre_order(proc)
+
+    <span style="color:#75715e"># 中序遍历二叉树(递归实现）</span>
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">middle_order</span>(self, proc):
+        <span style="color:#66d9ef">if</span> self<span style="color:#f92672">.</span>is_empty():
+            <span style="color:#66d9ef">return</span> 
+
+        <span style="color:#66d9ef">if</span> self<span style="color:#f92672">.</span>_left:
+            self<span style="color:#f92672">.</span>_left<span style="color:#f92672">.</span>middle_order(proc)
+
+        proc(self<span style="color:#f92672">.</span>_data)
+
+        <span style="color:#66d9ef">if</span> self<span style="color:#f92672">.</span>_right:
+            slef<span style="color:#f92672">.</span>_right<span style="color:#f92672">.</span>middle_order(proc)
+
+    <span style="color:#75715e"># 后序遍历二叉树(递归实现）</span>
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">post_order</span>(self, proc):
+        <span style="color:#66d9ef">if</span> self<span style="color:#f92672">.</span>is_empty():
+            <span style="color:#66d9ef">return</span> 
+
+        <span style="color:#66d9ef">if</span> self<span style="color:#f92672">.</span>_left:
+            self<span style="color:#f92672">.</span>_left<span style="color:#f92672">.</span>post_order(proc)
+
+        <span style="color:#66d9ef">if</span> self<span style="color:#f92672">.</span>_right:
+            slef<span style="color:#f92672">.</span>_right<span style="color:#f92672">.</span>post_order(proc)
+
+        proc(self<span style="color:#f92672">.</span>_data)
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">pre_order_nonrec</span>(self, proc):
+        cur <span style="color:#f92672">=</span> self
+        stack <span style="color:#f92672">=</span> SStack()
+
+        <span style="color:#66d9ef">while</span> cur<span style="color:#f92672">.</span>_data:
+            proc(cur<span style="color:#f92672">.</span>_data)
+
+            <span style="color:#66d9ef">if</span> cur<span style="color:#f92672">.</span>_left:
+                <span style="color:#66d9ef">if</span> cur<span style="color:#f92672">.</span>_right:
+                    stack<span style="color:#f92672">.</span>push(cur<span style="color:#f92672">.</span>_right)
+                cur <span style="color:#f92672">=</span> cur<span style="color:#f92672">.</span>_left
+            <span style="color:#66d9ef">elif</span> cur<span style="color:#f92672">.</span>_right:
+                cur <span style="color:#f92672">=</span> cur<span style="color:#f92672">.</span>_right
+            <span style="color:#66d9ef">elif</span> <span style="color:#f92672">not</span> stack<span style="color:#f92672">.</span>is_empty():
+                cur <span style="color:#f92672">=</span> stack<span style="color:#f92672">.</span>pop()
+            <span style="color:#66d9ef">else</span>:
+                cur <span style="color:#f92672">=</span> BinTree()
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">middle_order_nonrec</span>(self):
+        cur <span style="color:#f92672">=</span> self
+
+        stack <span style="color:#f92672">=</span> SStack()
+
+        <span style="color:#66d9ef">while</span> cur<span style="color:#f92672">.</span>_data <span style="color:#f92672">or</span> <span style="color:#f92672">not</span> stack<span style="color:#f92672">.</span>is_empty():
+            <span style="color:#66d9ef">if</span> cur<span style="color:#f92672">.</span>_data:
+                stack<span style="color:#f92672">.</span>push(cur)
+
+                <span style="color:#66d9ef">if</span> cur<span style="color:#f92672">.</span>_left:
+                    cur <span style="color:#f92672">=</span> cur<span style="color:#f92672">.</span>_left
+                <span style="color:#66d9ef">else</span>:
+                    cur <span style="color:#f92672">=</span> BinTree()
+            <span style="color:#66d9ef">else</span>:
+                cur <span style="color:#f92672">=</span> stack<span style="color:#f92672">.</span>pop()
+                proc(cur<span style="color:#f92672">.</span>_data)
+
+                <span style="color:#66d9ef">if</span> cur<span style="color:#f92672">.</span>_right:
+                    cur <span style="color:#f92672">=</span> cur<span style="color:#f92672">.</span>_right
+                <span style="color:#66d9ef">else</span>:
+                    cur <span style="color:#f92672">=</span> BinTree()
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">post_order_nonrec</span>(self, proc)
+        cur <span style="color:#f92672">=</span> self
+        stack <span style="color:#f92672">=</span> SStack()
+
+        stack<span style="color:#f92672">.</span>push(cur)
+
+        <span style="color:#66d9ef">while</span> cur<span style="color:#f92672">.</span>_data <span style="color:#f92672">or</span> <span style="color:#f92672">not</span> stack<span style="color:#f92672">.</span>is_empty():
+            <span style="color:#66d9ef">if</span> cur<span style="color:#f92672">.</span>_data:
+                stack<span style="color:#f92672">.</span>push(cur)
+
+                <span style="color:#66d9ef">if</span> cur<span style="color:#f92672">.</span>_left:
+                    cur <span style="color:#f92672">=</span> cur<span style="color:#f92672">.</span>_left
+                <span style="color:#66d9ef">elif</span> cur<span style="color:#f92672">.</span>_right:
+                    cur <span style="color:#f92672">=</span> cur<span style="color:#f92672">.</span>_right
+                <span style="color:#66d9ef">else</span>:
+                    cur <span style="color:#f92672">=</span> BinTree()
+            <span style="color:#66d9ef">else</span>:
+                cur <span style="color:#f92672">=</span> stack<span style="color:#f92672">.</span>pop()
+                proc(cur<span style="color:#f92672">.</span>_data)
+
+                <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> stack<span style="color:#f92672">.</span>is_empty() <span style="color:#f92672">and</span> cur <span style="color:#f92672">==</span> stack<span style="color:#f92672">.</span>top()<span style="color:#f92672">.</span>_left <span style="color:#f92672">and</span> stack<span style="color:#f92672">.</span>top()<span style="color:#f92672">.</span>_right:
+                    cur <span style="color:#f92672">=</span> stack<span style="color:#f92672">.</span>top()<span style="color:#f92672">.</span>_right
+                <span style="color:#66d9ef">else</span>:
+                    cur <span style="color:#f92672">=</span> BinTree()
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">level_order</span>(self, proc):
+        queue <span style="color:#f92672">=</span> Squeue()
+
+        <span style="color:#66d9ef">if</span> self<span style="color:#f92672">.</span>is_empty():
+            <span style="color:#66d9ef">return</span>
+
+        queue<span style="color:#f92672">.</span>enqueue(self)
+
+        <span style="color:#66d9ef">while</span> <span style="color:#f92672">not</span> queue<span style="color:#f92672">.</span>is_empty():
+            cur <span style="color:#f92672">=</span> queue<span style="color:#f92672">.</span>dequeue()
+
+            proc(cur<span style="color:#f92672">.</span>_data)
+
+            <span style="color:#66d9ef">if</span> cur<span style="color:#f92672">.</span>_left:
+                queue<span style="color:#f92672">.</span>enqueue(cur<span style="color:#f92672">.</span>_left)
+
+            <span style="color:#66d9ef">if</span> cur<span style="color:#f92672">.</span>_right:
+                queue<span style="color:#f92672">.</span>enqueue(cur<span style="color:#f92672">.</span>_right)</code></pre></div></p>
+<p>  二叉树遍历的非递归实现中，利用了栈 <a href="https://wst-casd.github.io/wst.github.io/2021/05/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%A0%86%E6%A0%88/">(数据结构基础之栈)</a>或者队列 <a href="https://wst-casd.github.io/wst.github.io/2021/05/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E4%B9%8B%E9%98%9F%E5%88%97/">(数据结构基础之队列)</a>这种缓存结构。</p>
+<p><strong>非递归的后根序遍历算法</strong></p>
+<p>  在这种遍历中，每个根结点都要经过三次：第一次遇到它时立即去处理其左子树，从左子树回到这里就应转到右子树，从右子树回来才应该处理根结点数据，而后返回上一层。</p>
+<p>  上述提供了一种实现方式。栈里每个结点的父结点就是位于它下面的那个结点。若变量t表示当前结点。在实现遍历的循环中维持一种不变关系：</p>
+<ul>
+<li>如果t不空，其父结点就是栈顶结点</li>
+<li>t为空时，栈顶就是应访问的结点。</li>
+</ul>
+<p>根据被访问结点是其父结点的左子结点或右子结点，就可以决定下一步怎么做：如果是左子结点就转到右兄弟；如果是右子结点，就应该处理根结点并强制退栈。</p>
+<h3 id="6-参考">6 参考</h3>
+<p>[1] 《数据结构与算法 Python语言描述》 裘宗燕 著 机械工业出版社， 2015.12</p>
+<p>[2]  <a href="https://www.jianshu.com/p/9503238394df">https://www.jianshu.com/p/9503238394df</a></p>
+
+    </div>
+    <div class="article-footer">
+
+    </div>
+  </article>
+</div><nav class="bar bar-footer clearfix" data-stick-bottom>
+    <div class="bar-inner">
+        <ul class="pager pull-left">
+            <li class="prev">
+                <a href="https://wst-casd.github.io/wst.github.io/about/" title="About"><i
+                        class="icon icon-angle-left"
+                        aria-hidden="true"></i><span>&nbsp;&nbsp;下一篇</span></a>
+            </li>
+            <li class="next">
+                <a href="https://wst-casd.github.io/wst.github.io/2021/06/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%A0%86/"
+                    title="数据结构基础之堆"><span>上一篇&nbsp;&nbsp;</span><i
+                        class="icon icon-angle-right" aria-hidden="true"></i></a>
+            </li>
+            
+            <li class="toggle-toc">
+                <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false"
+                    title="文章目录" role="button">
+                    <span>[&nbsp;</span><span>文章目录</span>
+                    <i class="text-collapsed icon icon-anchor"></i>
+                    <i class="text-in icon icon-close"></i>
+                    <span>]</span>
+                </a>
+            </li>
+        </ul>
+        <div class="bar-right">
+            <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter"
+                data-mobile-sites="weibo,qq,qzone"></div>
+        </div>
+    </div>
+</nav>
+
+
+</main><footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+<ul class="social-links">
+    <li><a href="https://github.com/wst-casd" target="_blank" title="github" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-github"></i></a></li>
+</ul>
+  <div class="copyright">
+    &copy;2021  -
+    2022
+    
+  </div>
+</footer>
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/katex.min.css" integrity="sha384-t5CR+zwDAROtph0PXGte6ia8heboACF9R5l/DiY+WZ3P2lxNgvJkQk5n7GPvLMYw" crossorigin="anonymous">
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/katex.min.js" integrity="sha384-FaFLTlohFghEIZkw6VGwmf9ISTubWAVYW8tG8+w2LAIftJEULZABrF9PPFv+tVkH" crossorigin="anonymous"></script>
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/contrib/auto-render.min.js" integrity="sha384-bHBqxz8fokvgoJ/sc17HODNxa42TlaEhB+w8ZJXTc2nZf1VgEaFZeZvT4Mznfz0v" crossorigin="anonymous"
+    onload="renderMathInElement(document.body);"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+                delimiters: [
+                    {left: "$$", right: "$$", display: true},
+                    {left: "$", right: "$", display: false}
+                ]
+            });
+    });
+ </script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+<script>
+    window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/highlight.min.js"></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/python.min.js" defer></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/javascript.min.js" defer></script><script>
+    hljs.configure({
+        tabReplace: '    ', 
+        classPrefix: ''     
+        
+    })
+    hljs.initHighlightingOnLoad();
+</script>
+<script src="https://wst-casd.github.io/wst.github.io/js/application.min.bdeb64b910570b6c41badc6a05b7afb0c8ad9efd8525de3c7257d59e786326a3.js"></script>
+<script src="https://wst-casd.github.io/wst.github.io/js/plugin.min.51ff8c7317566f82259170fa36e09c4493adc9b9378b427a01ad3f017ebac7dd.js"></script>
+
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(未命名)',
+            },
+            ROOT_URL: 'https:\/\/wst-casd.github.io\/wst.github.io\/',
+            CONTENT_URL: 'https:\/\/wst-casd.github.io\/wst.github.io\/\/searchindex.json ',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script type="text/javascript" src="https://wst-casd.github.io/wst.github.io/js/insight.min.a343cd9a5a7698336b28ef3a7c16a3a1b1d2d5fb17dc8ed04022bbe08cc5459073a15bdafa3a8a58cdd56080784bdd69fa70b1ae8597565c799c57ed00f0e120.js" defer></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/tocbot/4.12.2/tocbot.min.js"></script>
+<script>
+    tocbot.init({
+        
+        tocSelector: '.js-toc',
+        
+        contentSelector: '.js-toc-content',
+        
+        headingSelector: 'h1, h2, h3',
+        
+        hasInnerContainers: true,
+    });
+</script>
+
+
+  </body>
+</html>

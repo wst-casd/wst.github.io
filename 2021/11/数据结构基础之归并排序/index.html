@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <title>
+        数据结构基础之归并排序 - wst_dreg&#39;s blog
+      </title>
+        <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    
+    <meta name="theme-color" content="#000000" />
+    
+    <meta http-equiv="window-target" content="_top" />
+    
+    
+    <meta name="description" content="1 定义 归并是一种典型的序列操作，其工作是把两个或者更多有序的序列合并成一个有序序列。基于归并的思想也可以实现排序，成为归并排序。基本方法如下" />
+    <meta name="generator" content="Hugo 0.71.1 with theme pure" />
+    <title>数据结构基础之归并排序 - wst_dreg&#39;s blog</title>
+    
+    
+    <link rel="stylesheet" href="https://wst-casd.github.io/wst.github.io/css/style.min.ed1876313d7769da6b3d0f9eeb3dadae8e266a095740130e67acfe46eb4c19b2.css">
+    
+    <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.15.10/styles/github.min.css" async>
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/tocbot/4.12.2/tocbot.min.css" async>
+    <meta property="og:title" content="数据结构基础之归并排序" />
+<meta property="og:description" content="1 定义 归并是一种典型的序列操作，其工作是把两个或者更多有序的序列合并成一个有序序列。基于归并的思想也可以实现排序，成为归并排序。基本方法如下" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://wst-casd.github.io/wst.github.io/2021/11/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/" />
+<meta property="article:published_time" content="2021-11-02T07:53:40+08:00" />
+<meta property="article:modified_time" content="2021-11-02T07:53:40+08:00" />
+<meta itemprop="name" content="数据结构基础之归并排序">
+<meta itemprop="description" content="1 定义 归并是一种典型的序列操作，其工作是把两个或者更多有序的序列合并成一个有序序列。基于归并的思想也可以实现排序，成为归并排序。基本方法如下">
+<meta itemprop="datePublished" content="2021-11-02T07:53:40&#43;08:00" />
+<meta itemprop="dateModified" content="2021-11-02T07:53:40&#43;08:00" />
+<meta itemprop="wordCount" content="1553">
+
+
+
+<meta itemprop="keywords" content="排序,归并排序," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="数据结构基础之归并排序"/>
+<meta name="twitter:description" content="1 定义 归并是一种典型的序列操作，其工作是把两个或者更多有序的序列合并成一个有序序列。基于归并的思想也可以实现排序，成为归并排序。基本方法如下"/>
+
+    <!--[if lte IE 9]>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+      <![endif]-->
+
+    <!--[if lt IE 9]>
+        <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+      <![endif]-->
+  </head>
+
+  
+  
+
+  <body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage"><header class="header" itemscope itemtype="http://schema.org/WPHeader">
+    <div class="slimContent">
+      <div class="navbar-header">
+        <div class="profile-block text-center">
+          <a id="avatar" href="https://github.com/wst-casd" target="_blank">
+            <img class="img-circle img-rotate" src="https://wst-casd.github.io/wst.github.io/avatar.png" width="200" height="200">
+          </a>
+          <h2 id="name" class="hidden-xs hidden-sm">wst_dreg</h2>
+          <h3 id="title" class="hidden-xs hidden-sm hidden-md">千里之行，始于足下</h3>
+          <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i>Shanghai, China</small>
+        </div><div class="search" id="search-form-wrap">
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i
+                        class="icon icon-search"></i></button>
+            </span>
+        </div>
+        <div class="ins-search">
+            <div class="ins-search-mask"></div>
+            <div class="ins-search-container">
+                <div class="ins-input-wrapper">
+                    <input type="text" class="ins-search-input" placeholder="想要查找什么..."
+                        x-webkit-speech />
+                    <button type="button" class="close ins-close ins-selectable" data-dismiss="modal"
+                        aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="ins-section-wrapper">
+                    <div class="ins-section-container"></div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+        <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+        <ul class="nav navbar-nav main-nav">
+            <li class="menu-item menu-item-home">
+                <a href="/wst.github.io/">
+                    <i class="icon icon-home-fill"></i>
+                  <span class="menu-title">主页</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-archives">
+                <a href="/wst.github.io/posts/">
+                    <i class="icon icon-archives-fill"></i>
+                  <span class="menu-title">归档</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-about">
+                <a href="/wst.github.io/about/">
+                    <i class="icon icon-cup-fill"></i>
+                  <span class="menu-title">关于我</span>
+                </a>
+            </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+<aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content"><p>暂无</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+      <div class="widget">
+    <h3 class="widget-title"> 分类</h3>
+    <div class="widget-body">
+        <ul class="category-list">
+            <li class="category-list-item"><a href="https://wst-casd.github.io/wst.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" class="category-list-link">数据结构与算法</a><span class="category-list-count">16</span></li>
+        </ul>
+    </div>
+</div>
+      
+<div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+        <ul class="recent-post-list list-unstyled no-thumbnail">
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://wst-casd.github.io/wst.github.io/2021/11/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E4%B9%8B%E6%A1%B6%E6%8E%92%E5%BA%8F/" class="title">数据结构基础之桶排序</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2021-11-17 07:53:40 &#43;0800 CST" itemprop="datePublished">2021-11-17</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://wst-casd.github.io/wst.github.io/2021/11/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E4%B9%8B%E8%AE%A1%E6%95%B0%E6%8E%92%E5%BA%8F/" class="title">数据结构基础之计数排序</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2021-11-10 07:53:40 &#43;0800 CST" itemprop="datePublished">2021-11-10</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://wst-casd.github.io/wst.github.io/2021/11/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%A0%86%E6%8E%92%E5%BA%8F/" class="title">数据结构基础之堆排序</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2021-11-06 07:53:40 &#43;0800 CST" itemprop="datePublished">2021-11-06</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://wst-casd.github.io/wst.github.io/2021/11/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/" class="title">数据结构基础之归并排序</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2021-11-02 07:53:40 &#43;0800 CST" itemprop="datePublished">2021-11-02</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://wst-casd.github.io/wst.github.io/2021/10/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/" class="title">数据结构基础之快速排序</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2021-10-25 07:53:40 &#43;0800 CST" itemprop="datePublished">2021-10-25</time>
+                    </p>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+  </div>
+</aside>
+
+    
+    
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <h4 class="toc-title">文章目录</h4>
+    <nav id="toc" class="js-toc toc">
+
+    </nav>
+  </div>
+</aside>
+<main class="main" role="main"><div class="content">
+  <article id="-" class="article article-type-" itemscope
+    itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      <h1 itemprop="name">
+  <a
+    class="article-title"
+    href="/wst.github.io/2021/11/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/"
+    >数据结构基础之归并排序</a
+  >
+</h1>
+
+      <div class="article-meta">
+        
+<span class="article-date">
+  <i class="icon icon-calendar-check"></i>&nbsp;
+<a href="https://wst-casd.github.io/wst.github.io/2021/11/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/" class="article-date">
+  <time datetime="2021-11-02 07:53:40 &#43;0800 CST" itemprop="datePublished">2021-11-02</time>
+</a>
+</span>
+<span class="article-category">
+  <i class="icon icon-folder"></i>&nbsp;
+  <a class="article-category-link" href="/wst.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"> 数据结构与算法 </a>
+</span>  
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>&nbsp;
+    <a class="article-tag-link" href="/wst.github.io/tags/%E6%8E%92%E5%BA%8F/"> 排序 </a>
+    <a class="article-tag-link" href="/wst.github.io/tags/%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/"> 归并排序 </a>
+  </span>
+
+      </div>
+    </div>
+    <div class="article-entry marked-body js-toc-content" itemprop="articleBody">
+      <h3 id="1-定义">1 定义</h3>
+<p>  归并是一种典型的序列操作，其工作是把两个或者更多有序的序列合并成一个有序序列。基于归并的思想也可以实现排序，成为归并排序。基本方法如下：</p>
+<ul>
+<li>初始时，把待排序序列中的$n$个记录看成$n$个有序子序列(因为一个记录的序列总是排好序的)，每个子序列的长度均为1。</li>
+<li>把此时子序列中的有序子序列两两归并，完成一遍后序列里的排序序列个数减半，每个子序列的长度加倍。</li>
+<li>对加长的子序列重复场面的操作，最终得到一个长度为$n$的有序序列。</li>
+</ul>
+<p>这种归并算法成为简单的二路归并排序，其中每次操作都是把其中两个有序序列合并成一个有序序列。</p>
+<p>下图1是一个归并排序的例子。</p>
+<div align=center><img src="./img_1.png" width="350" heigth="350"></div>
+<h3 id="2-算法的实现">2 算法的实现</h3>
+<p>  归并排序本质上是分治的思想，可以用递归和非递归的方式来分别实现。</p>
+<h4 id="21-归并排序的非递归实现">2.1 归并排序的非递归实现</h4>
+<p>  弄清楚算法的过程，下面的问题就是如何实现这种计算过程。在这里需要一遍遍的归并，出现的一个问题是归并结果的序列放在哪里。</p>
+<p>  下面的讨论中使用了一种简便的处理方式，为实现归并另外开辟了一个同样大小的存储区，把一遍归并的结果放在这里。在一遍归并做完后，新表里保存着原表的所有数据。在这种情况下，可以考虑调换两个表的角色，在原表中存储下一遍归并的结果。这样来来回回做几遍，就能完成整个排序工作了。</p>
+<p>  显然，在这种情况下，实际上至少需要O($n$)的辅助空间。这是付出空间代价，获得实现的简便。</p>
+<p>  归并排序的算法分为三层实现：</p>
+<p> a) 最下层：实现表中相邻的一对有序序列的归并工作，将归并的结果存入另一个表中；</p>
+<p> b) 中间层：基于a)，实现对整个表里顺序各对有序序列的归并，完成一遍归并，各对序列的归并结果顺序存入另一个表的同位置分段；</p>
+<p> c) 最高层：在两个表之间来回执行操作b)，完成一遍归并后交换两个表的地位，然后在重复操作b)的工作，直至整个表里只有一个有序序列的序列。</p>
+<p>  一般情况下，被排序表的长度不一定是2的幂，因此需要考虑序列最后的不规则情况。</p>
+<p>现考虑最下面一层函数merge，它完成表中连续排放的两个有序序列的归并工作。具体的实现代码如下：
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python3" data-lang="python3"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">merge</span>(lst_from, lst_to, low, mid, high):
+    i, j, k <span style="color:#f92672">=</span> low, mid, low
+
+    <span style="color:#66d9ef">while</span> i <span style="color:#f92672">&lt;</span> mid <span style="color:#f92672">and</span> j <span style="color:#f92672">&lt;</span> high:
+        <span style="color:#66d9ef">if</span> lst_from[i] <span style="color:#f92672">&lt;=</span> lst_from[j]:
+            lst_to[k] <span style="color:#f92672">=</span> lst_from[i]
+            i <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+        <span style="color:#66d9ef">else</span>:
+            lst_to[k] <span style="color:#f92672">=</span> lst_from[j]
+            j <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+        k <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+    
+    <span style="color:#66d9ef">while</span> i <span style="color:#f92672">&lt;</span> mid;
+        lst_to[k] <span style="color:#f92672">=</span> lst_from[i]
+        i <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+        k <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+
+    <span style="color:#66d9ef">while</span> j <span style="color:#f92672">&lt;</span> high:
+        lst_to[k] <span style="color:#f92672">=</span> lst_from[j]
+        j <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+        k <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+        </code></pre></div></p>
+<p>注意：上述归并算法以及下面的讨论中，对于区间均默认是左闭右开。</p>
+<p>函数merge_pass实现一对对分段的一遍归并，它需要知道表长度和分段长度，参数llen和slen分别表示两个长度。第一个循环处理一对对长度都为slen的分段，随后的if语句处理表最后剩下的两个或一个分段。具体代码如下：
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python3" data-lang="python3"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">merge_pass</span>(lst_from, lst_to, llen, slen):
+    i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+
+    <span style="color:#66d9ef">while</span> (i<span style="color:#f92672">+</span><span style="color:#ae81ff">2</span><span style="color:#f92672">*</span>slen) <span style="color:#f92672">&lt;</span> llen:
+        merge(lst_from, lst_to, i, i<span style="color:#f92672">+</span>slen, i<span style="color:#f92672">+</span><span style="color:#ae81ff">2</span><span style="color:#f92672">*</span>slen)
+
+        i <span style="color:#f92672">+=</span> <span style="color:#ae81ff">2</span><span style="color:#f92672">*</span>slen
+
+    <span style="color:#66d9ef">if</span> i <span style="color:#f92672">+</span> slen <span style="color:#f92672">&lt;</span> llen:
+        merge(lst_from, lst_to, i, i<span style="color:#f92672">+</span>slen, llen)
+    <span style="color:#66d9ef">else</span>:
+        <span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> renge(i, llen):
+            lst_to[j] <span style="color:#f92672">=</span> lst_from[j]</code></pre></div></p>
+<p>最后是最高层的merge_sort函数，它先安排另一个同样长度的表，然后在两个表之间往复的一遍遍归并，直至完成。具体代码如下：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python3" data-lang="python3"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">merge_sort</span>(lst):
+    slen, llen <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>, len(lst)
+    lst_to <span style="color:#f92672">=</span> [<span style="color:#66d9ef">None</span>]<span style="color:#f92672">*</span>llen
+
+    <span style="color:#66d9ef">while</span> slen <span style="color:#f92672">&lt;</span> llen:
+        merge_pass(lst, lst_to, llen, slen)
+        slen <span style="color:#f92672">*=</span> <span style="color:#ae81ff">2</span>
+
+        merge_pass(lst_to, lst, llen, slen)
+        slen <span style="color:#f92672">*=</span> <span style="color:#ae81ff">2</span>
+        </code></pre></div>
+<h4 id="22-归并排序的递归实现">2.2 归并排序的递归实现</h4>
+<p>  下图是归并排序递归过程的一个例子。本质上是采用分治的思想，</p>
+<div align=center><img src="./img_2.png" width="350" heigth="350"></div>
+<p>  下面是代码实现
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python3" data-lang="python3"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">merge</span>(lst, low, mid, high):
+    i, j, k <span style="color:#f92672">=</span> low, mid, low
+    lst_to <span style="color:#f92672">=</span> [ <span style="color:#66d9ef">None</span> ]<span style="color:#f92672">*</span>len(lst)
+
+    <span style="color:#66d9ef">while</span> i <span style="color:#f92672">&lt;</span> mid <span style="color:#f92672">and</span> j <span style="color:#f92672">&lt;</span> high:
+        <span style="color:#66d9ef">if</span> lst[i] <span style="color:#f92672">&lt;=</span> lst[j]:
+            lst_to[k] <span style="color:#f92672">=</span> lst[i]
+            i <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+        <span style="color:#66d9ef">else</span>:
+            lst_to[k] <span style="color:#f92672">=</span> lst[j]
+            j <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+        k <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+    
+    <span style="color:#66d9ef">while</span> i <span style="color:#f92672">&lt;</span> mid;
+        lst_to[k] <span style="color:#f92672">=</span> lst[i]
+        i <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+        k <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+
+    <span style="color:#66d9ef">while</span> j <span style="color:#f92672">&lt;</span> high:
+        lst_to[k] <span style="color:#f92672">=</span> lst[j]
+        j <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+        k <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+
+    k <span style="color:#f92672">=</span> low
+    <span style="color:#66d9ef">while</span> k <span style="color:#f92672">&lt;</span> high:
+        lst[k] <span style="color:#f92672">=</span> lst_to[k]
+        k <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span> 
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">merge_sort</span>(lst):
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">merge_handle</span>(lst, low, high):
+        <span style="color:#66d9ef">if</span> low <span style="color:#f92672">&gt;=</span> high:
+            <span style="color:#66d9ef">return</span>
+        
+        mid <span style="color:#f92672">=</span> (low <span style="color:#f92672">+</span> high) <span style="color:#f92672">&gt;&gt;</span> <span style="color:#ae81ff">1</span>
+
+        merge_handle(lst, low, mid)
+        merge_handle(lst, mid, high)
+        merge(lst, low, mid, high)
+    
+    mer_handle(lst, <span style="color:#ae81ff">0</span>, len(lst))
+    </code></pre></div></p>
+<h3 id="3-算法的分析">3 算法的分析</h3>
+<p>  首先考虑算法的时间复杂度。易见，做完第$k$遍递归后，有序子序列的长度为$2^k$。因此，完成整个排序需要做的递归遍数不会多于$log_{2}n$+1。在每遍归并中做的比较次数为O($n$)，所以，总的比较次数和移动次数都为O($n$log$n$)。</p>
+<p>  空间复杂度为O($n$)。</p>
+<p>  上述介绍的归并排序算法是稳定的，但不具有适应性，因为无论对什么样的序列都做$log_{2}n$遍递归。</p>
+<h3 id="4-参考">4 参考</h3>
+<p>[1] 《数据结构与算法 Python语言描述》 裘宗燕 著 机械工业出版社， 2015.12</p>
+
+    </div>
+    <div class="article-footer">
+
+    </div>
+  </article>
+</div><nav class="bar bar-footer clearfix" data-stick-bottom>
+    <div class="bar-inner">
+        <ul class="pager pull-left">
+            <li class="prev">
+                <a href="https://wst-casd.github.io/wst.github.io/2021/10/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/" title="数据结构基础之快速排序"><i
+                        class="icon icon-angle-left"
+                        aria-hidden="true"></i><span>&nbsp;&nbsp;下一篇</span></a>
+            </li>
+            <li class="next">
+                <a href="https://wst-casd.github.io/wst.github.io/2021/11/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%A0%86%E6%8E%92%E5%BA%8F/"
+                    title="数据结构基础之堆排序"><span>上一篇&nbsp;&nbsp;</span><i
+                        class="icon icon-angle-right" aria-hidden="true"></i></a>
+            </li>
+            
+            <li class="toggle-toc">
+                <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false"
+                    title="文章目录" role="button">
+                    <span>[&nbsp;</span><span>文章目录</span>
+                    <i class="text-collapsed icon icon-anchor"></i>
+                    <i class="text-in icon icon-close"></i>
+                    <span>]</span>
+                </a>
+            </li>
+        </ul>
+        <div class="bar-right">
+            <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter"
+                data-mobile-sites="weibo,qq,qzone"></div>
+        </div>
+    </div>
+</nav>
+
+
+</main><footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+<ul class="social-links">
+    <li><a href="https://github.com/wst-casd" target="_blank" title="github" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-github"></i></a></li>
+</ul>
+  <div class="copyright">
+    &copy;2021  -
+    2022
+    
+  </div>
+</footer>
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/katex.min.css" integrity="sha384-t5CR+zwDAROtph0PXGte6ia8heboACF9R5l/DiY+WZ3P2lxNgvJkQk5n7GPvLMYw" crossorigin="anonymous">
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/katex.min.js" integrity="sha384-FaFLTlohFghEIZkw6VGwmf9ISTubWAVYW8tG8+w2LAIftJEULZABrF9PPFv+tVkH" crossorigin="anonymous"></script>
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/contrib/auto-render.min.js" integrity="sha384-bHBqxz8fokvgoJ/sc17HODNxa42TlaEhB+w8ZJXTc2nZf1VgEaFZeZvT4Mznfz0v" crossorigin="anonymous"
+    onload="renderMathInElement(document.body);"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+                delimiters: [
+                    {left: "$$", right: "$$", display: true},
+                    {left: "$", right: "$", display: false}
+                ]
+            });
+    });
+ </script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+<script>
+    window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/highlight.min.js"></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/python.min.js" defer></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/javascript.min.js" defer></script><script>
+    hljs.configure({
+        tabReplace: '    ', 
+        classPrefix: ''     
+        
+    })
+    hljs.initHighlightingOnLoad();
+</script>
+<script src="https://wst-casd.github.io/wst.github.io/js/application.min.bdeb64b910570b6c41badc6a05b7afb0c8ad9efd8525de3c7257d59e786326a3.js"></script>
+<script src="https://wst-casd.github.io/wst.github.io/js/plugin.min.51ff8c7317566f82259170fa36e09c4493adc9b9378b427a01ad3f017ebac7dd.js"></script>
+
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(未命名)',
+            },
+            ROOT_URL: 'https:\/\/wst-casd.github.io\/wst.github.io\/',
+            CONTENT_URL: 'https:\/\/wst-casd.github.io\/wst.github.io\/\/searchindex.json ',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script type="text/javascript" src="https://wst-casd.github.io/wst.github.io/js/insight.min.a343cd9a5a7698336b28ef3a7c16a3a1b1d2d5fb17dc8ed04022bbe08cc5459073a15bdafa3a8a58cdd56080784bdd69fa70b1ae8597565c799c57ed00f0e120.js" defer></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/tocbot/4.12.2/tocbot.min.js"></script>
+<script>
+    tocbot.init({
+        
+        tocSelector: '.js-toc',
+        
+        contentSelector: '.js-toc-content',
+        
+        headingSelector: 'h1, h2, h3',
+        
+        hasInnerContainers: true,
+    });
+</script>
+
+
+  </body>
+</html>
